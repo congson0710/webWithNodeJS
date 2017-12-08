@@ -24,12 +24,11 @@ exports.load = function (queryString) {
     connection.connect();
     // start querying, pass result in callback functions
     connection.query(queryString, function (error, results) {
-
         // create "promise"
         defer.resolve(results);
     })
     // close a connection
     connection.end();
-
+    // return "promise"
     return defer.promise;
 }
