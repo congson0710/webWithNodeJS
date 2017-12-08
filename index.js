@@ -7,7 +7,9 @@ const app = express();
 app.use(morgan("dev"))
 
 app.get("/hello", function (req, res) {
-    db.load("SELECT * FROM userinfo.user_profile");
+    db.load("SELECT * FROM userinfo.user_profile").then(function (results) {
+        console.log("RESULT", results);
+    })
     res.end("HELLO WORLD");
 })
 app.listen(8000);
