@@ -34,11 +34,20 @@
                     <span class="icon-cog icon-white"></span>
                     <span class="caret"></span>
                 </button>
-                <button class="btn btn-danger">
-                    Sản Phẩm
-                    <span class="icon-cog icon-white"></span>
-                    <span class="caret"></span>
-                </button>
+                <div class="btn-group">
+                    <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                        Sản Phẩm
+                        <span class="icon-cog icon-white"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Dầu nhớt</a>
+                        <a class="dropdown-item" href="#">Vỏ xe</a>
+                        <a class="dropdown-item" href="#">Phụ gia</a>
+                        <div class="dropdown-divider" role="separator"></div>
+                        <a class="dropdown-item" href="#">Dịch vụ</a>
+                    </div>
+                </div>
                 <button class="btn btn-danger">
                     Đăng ký
                     <span class="icon-cog icon-white"></span>
@@ -80,7 +89,7 @@
     <!-- footer -->
     <footer class="footer">
         <nav class="nav navbar bg-danger">
-            <div class="container">
+            <div class="container navbar">
                 <div class="row">
                     <nav class="col-md-8">
                         <a class="h6">TRUNG TÂM DẦU NHỚT VÀ SẢN PHẨM PHỤ TRỢ EXPRESSCENTER</a>
@@ -93,8 +102,10 @@
                     </nav>
                     <nav class="col-md-4">
                         <a class="h6">Fax: 08.37.36.09.28</a>
+                        <br>
                         <a class="h6">Email: Info@expresscenter.vn</a>
-                        <a class="h6">Website: expresscenter.vn</a>
+                        <br>
+                        <a class="h6">Website: www.expresscenter.vn</a>
                     </nav>
                 </div>
             </div>
