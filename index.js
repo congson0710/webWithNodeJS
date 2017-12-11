@@ -1,7 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
-const controler = require("./query");
+const model = require("./model");
 const handlebars = require("express-handlebars");
+const path = require("path");
 
 // express module
 const app = express();
@@ -18,17 +19,25 @@ app.engine(
   })
 );
 
+app.use(express.static(path.resolve(__dirname, "public")));
+
 app.set("view engine", "hbs");
 
-app.get("/hello", function(req, res) {
-  // tell "db.load" to catch "promise" after excuting "load"
-  controler.getAllUser().then(function(arrayUser) {
-    console.log("RESULT:", arrayUser);
-  });
-
-  // db.load("SELECT * FROM userinfo.user_profile").then(function (results) {
-  //     console.log("RESULT", results);
-  // })
-  res.end("HELLO WORLD");
+app.get("/signin", function(req, res) {
+  var ve = {
+    layout: false
+  };
+  res.render("Signin", ve);
 });
+
+app.get("/profile", function(req, res) {
+  model.getUserInfoByID(1).then(function(arrayUser) {
+    var ve = {
+      layout: false,
+      user: arrayUser[0]
+    };
+    res.render("UserInfor", ve);
+  });
+});
+
 app.listen(8000);
