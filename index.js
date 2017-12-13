@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const handlebars = require("express-handlebars");
+const sections = require("express-handlebars-sections");
 const path = require("path");
 const bodyParser = require("body-parser");
 
@@ -9,7 +10,7 @@ const app = express();
 // morgan module for "middlewares"
 app.use(morgan("dev"));
 
-// Get object form from view
+// Filter object form from view
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -23,7 +24,10 @@ app.engine(
     extname: "hbs",
     defaultLayout: "main",
     layoutsDir: "views/layouts/",
-    partialsDir: "views/partials/"
+    partialsDir: "views/partials/",
+    helpers: {
+      section: sections()
+    }
   })
 );
 

@@ -3,10 +3,7 @@ const model = require("../model/userModel");
 module.exports = app => {
   //Signin
   app.get("/signin", function(req, res) {
-    const ve = {
-      layout: false
-    };
-    res.render("Signin", ve);
+    res.render("Signin");
   });
 
   // app.post("/signin")
@@ -28,10 +25,7 @@ module.exports = app => {
 
   //Signup
   app.get("/signup", function(req, res) {
-    const ve = {
-      layout: false
-    };
-    res.render("Signup", ve);
+    res.render("Signup");
   });
 
   app.post("/signup", (req, res) => {

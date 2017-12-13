@@ -478,6 +478,10 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
+express-handlebars-sections@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/express-handlebars-sections/-/express-handlebars-sections-1.0.1.tgz#2ff4ba1af82f3ead75570aeec2b1ccc650f23c21"
+
 express-handlebars@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/express-handlebars/-/express-handlebars-3.0.0.tgz#80a070bb819b09e4af2ca6d0780f75ce05e75c2f"
