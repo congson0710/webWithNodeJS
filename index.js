@@ -33,9 +33,10 @@ app.set("view engine", "hbs");
 
 //Controller
 
+//Route HomePage
+require("./controller/homePageController")(app);
 //Route Authenticate
 require("./controller/authenticateController")(app);
 //Route User
 require("./controller/userController")(app);
-
 app.listen(8000);

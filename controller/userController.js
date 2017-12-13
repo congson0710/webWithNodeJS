@@ -1,4 +1,4 @@
-const model = require("../model/model");
+const model = require("../model/userModel");
 
 module.exports = app => {
   app.get("/profile", function(req, res) {

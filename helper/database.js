@@ -6,7 +6,7 @@ const q = require("q");
 // config sever
 var _HOST = "127.0.0.1",
   _USER = "root",
-  _PWD = "baotuan",
+  _PWD = "1412468",
   _DB = "userinfo";
 
 // load data (exports for using in another file)
@@ -25,7 +25,7 @@ exports.load = function(queryString) {
   // start querying, pass result in callback functions
   connection.query(queryString, function(error, results) {
     // create "promise"
-    console.log(error);
+    if (error) throw error;
     defer.resolve(results);
   });
   // close a connection
