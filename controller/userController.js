@@ -9,4 +9,8 @@ module.exports = app => {
       res.render("UserInfor", ve);
     });
   });
+
+  app.get("/userhomepage", (req, res) => {
+    res.render("UserHomePage");
+  });
 };

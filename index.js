@@ -37,6 +37,8 @@ app.set("view engine", "hbs");
 
 //Controller
 
+//Route Product
+require("./controller/pay-productController")(app);
 //Route HomePage
 require("./controller/homePageController")(app);
 //Route Authenticate

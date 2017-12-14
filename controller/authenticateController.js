@@ -27,7 +27,7 @@ module.exports = app => {
   app.get("/signup", function(req, res) {
     res.render("Signup");
   });
-
+  //app.post("/signup")
   app.post("/signup", (req, res) => {
     // PUT thong tin vao database
     model.insertUserInfo(req.body).then(id => {
