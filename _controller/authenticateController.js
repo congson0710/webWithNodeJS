@@ -1,18 +1,13 @@
-const model = require("../model/userModel");
+const model = require("../_model/userModel");
 
 module.exports = app => {
-  //Signin
-  app.get("/signin", function(req, res) {
-    res.render("Signin");
-  });
-
   // app.post("/signin")
   app.post("/signin", (req, res) => {
-    model.checkingUserNameForLogin(req.body).then(arrayUser => {
+    model.checkUserNameForSignin(req.body).then(arrayUser => {
       if (arrayUser.length > 0) {
-        model.checkingPasswordForLogin(req.body).then(objUser => {
-          if (objUser.length > 0) {
-            res.redirect("/homesignedin");
+        model.checkUserSigninInfo(req.body).then(arrayUser => {
+          if (arrayUser.length > 0) {
+            res.redirect("/userhomepage");
           } else {
             res.redirect("/signin");
           }
@@ -23,10 +18,6 @@ module.exports = app => {
     });
   });
 
-  //Signup
-  app.get("/signup", function(req, res) {
-    res.render("Signup");
-  });
   //app.post("/signup")
   app.post("/signup", (req, res) => {
     // PUT thong tin vao database

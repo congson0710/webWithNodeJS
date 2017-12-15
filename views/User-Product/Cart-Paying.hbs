@@ -1,0 +1,151 @@
+{{#section 'title'}}Giỏ hàng{{/section}} {{#section 'headTitle'}}Giỏ hàng{{/section}}
+
+
+<!-- Product table -->
+<div class="container">
+    <div class="row" style="margin-bottom: 20px">
+        <div class="col-lg-10 offset-md-1">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr align="center">
+                                <th scope="col">Số thứ tự</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Tình trạng</th>
+                                <th scope="col">Đơn giá</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+                            <tr>
+                                <th scope="row" class="id">1</th>
+                                <td>Motul 300V 4T 10W40 France</td>
+                                <td>Còn hàng</td>
+                                <td class="price">400000</td>
+                                <td align="center">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary calMinus"> - </button>
+                                        </span>
+                                        <input type="text" value="1" style="text-align: center" class="prodQuan" id="prodQuan">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary calPlus"> + </button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="subTotal">400000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Motul 300V 4T 10W40 France</td>
+                                <td>Còn hàng</td>
+                                <td class="price">400000</td>
+                                <td align="center">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary calMinus"> - </button>
+                                        </span>
+                                        <input type="text" value="1" style="text-align: center" class="prodQuan" id="prodQuan">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary calPlus"> + </button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="subTotal">400000</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Motul 300V 4T 10W40 France</td>
+                                <td>Còn hàng</td>
+                                <td class="price">400000</td>
+                                <td align="center">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary calMinus"> - </button>
+                                        </span>
+                                        <input type="text" value="1" style="text-align: center" class="prodQuan" id="prodQuan">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-secondary calPlus"> + </button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="subTotal">400000</td>
+                            </tr>
+                            <tr class="totalPaying">
+                                <th scope="row">Tổng cộng</th>
+                                <td colspan="4"></td>
+                                <td class="totalPrice">1200000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Confirm button -->
+                    <div class="col-md-4 offset-md-8" align="right">
+                        <button class="btn btn-primary">Xác nhận</button>
+                        <button class="btn btn-primary">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{#section 'js'}}
+<script>
+    $(".calMinus").click(function () {
+        //get parents
+        var parent = $(this).parents('tr');
+        //plus or minus
+        var IncOrDec = -1;
+        modifyQuanTityAndPrice(parent, IncOrDec);
+    });
+
+    $(".calPlus").click(function () {
+        //get parents
+        var parent = $(this).parents('tr');
+        //plus or minus
+        var IncOrDec = 1;
+        modifyQuanTityAndPrice(parent, IncOrDec);
+    });
+
+    function modifyQuanTityAndPrice(parent, IncOrDec) {
+        var curQuan = parseInt(parent.find(".prodQuan").val());
+        var curSubTotal = parseInt(parent.find(".subTotal").text());
+        var curPrice = parseInt(parent.find(".price").text());
+
+        var newQuan, newSubTotal;
+        if (IncOrDec == -1) {
+            if (curQuan <= 0)
+                newQuan = 0;
+            else
+                newQuan = curQuan - 1;
+        }
+        else if (IncOrDec == 1) {
+            newQuan = curQuan + 1;
+        }
+
+        newSubTotal = newQuan * curPrice;
+        var balance = Math.abs(curSubTotal - newSubTotal);
+
+        parent.find(".subTotal").text(newSubTotal);
+        parent.find(".prodQuan").val(newQuan);
+        //get upper level parent
+        var upperParent = parent.parents('tbody');
+        totalPriceToPay(upperParent, balance, IncOrDec);
+    }
+
+    function totalPriceToPay(upperParent, newSubTotal, IncOrDec) {
+        var curTotalPrice = parseInt(upperParent.find('.totalPrice').text());
+
+        console.log(newSubTotal);
+        if (IncOrDec == -1)
+            var newTotalPrice = curTotalPrice - newSubTotal;
+        else if (IncOrDec == 1)
+            var newTotalPrice = curTotalPrice + newSubTotal;
+
+        upperParent.find('.totalPrice').text(newTotalPrice);
+    }
+
+</script> {{/section}}

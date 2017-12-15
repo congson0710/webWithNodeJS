@@ -23,7 +23,7 @@ app.engine(
   handlebars({
     extname: "hbs",
     defaultLayout: "main",
-    layoutsDir: "views/layouts/",
+    layoutsDir: "views/_layouts/",
     partialsDir: "views/partials/",
     helpers: {
       section: sections()
@@ -38,11 +38,11 @@ app.set("view engine", "hbs");
 //Controller
 
 //Route Product
-require("./controller/pay-productController")(app);
+require("./_controller/pay-productController")(app);
 //Route HomePage
-require("./controller/homePageController")(app);
+require("./_controller/homePageController")(app);
 //Route Authenticate
-require("./controller/authenticateController")(app);
+require("./_controller/authenticateController")(app);
 //Route User
-require("./controller/userController")(app);
+require("./_controller/userController")(app);
 app.listen(8000);

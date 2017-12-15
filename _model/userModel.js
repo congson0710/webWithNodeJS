@@ -1,4 +1,4 @@
-var db = require("../helper/database");
+var db = require("../_helper/database");
 var mustache = require("mustache");
 
 //get all user from table
@@ -25,18 +25,18 @@ exports.insertUserInfo = user => {
   );
   return db.insert(sql);
 };
-//check username from database if exist
-exports.checkingUserNameForLogin = userInfo => {
+
+exports.checkUserNameForSignin = userInfo => {
   const sql = mustache.render(
     'select * from user_profile where UserName = "{{UserName}}"',
     userInfo
   );
   return db.load(sql);
 };
-//check user's password from databse if exist
-exports.checkingPasswordForLogin = userInfo => {
+
+exports.checkUserSigninInfo = userInfo => {
   const sql = mustache.render(
-    `select * from user_profile where UserName = "{{UserName}}" and UserPassword = "{{UserPassword}}"`,
+    'select * from user_profile where UserName = "{{UserName}}" and UserPassword = "{{UserPassword}}"',
     userInfo
   );
   return db.load(sql);
