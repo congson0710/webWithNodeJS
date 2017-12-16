@@ -10,3 +10,14 @@ exports.getProdByType = function(productType) {
   );
   return db.load(sql);
 };
+//get product by name
+exports.getProdByName = productName => {
+  var product = {
+    prodName: productName
+  };
+  var sql = mustache.render(
+    'select * from product where ProdName = "{{prodName}}"',
+    product
+  );
+  return db.load(sql);
+};
