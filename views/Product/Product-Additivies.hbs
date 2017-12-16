@@ -3,53 +3,19 @@
 <!-- body -->
 <div class="container" style="margin-bottom: 20px">
     <div class="row">
+        {{#each prod}}
         <div class="col-md-3">
             <div class="img-thumbnail">
-                <img src="product/Additivies/voltronic-d12.png" alt="motul" height="250" width="230">
+                <img src="{{ProdImage}}" alt="motul" height="250" width="230">
                 <div class="caption">
-                    <p class="h5">Voltronic-D12</p>
-                    <p>Giá: 400.000 VNĐ</p>
+                    <p class="h5">{{ProdName}}</p>
+                    <p>Giá: {{ProdPrice}} VNĐ</p>
                     <p>
                         <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Additivies/voltronic-e20.png" alt="motul300v15w50" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Voltronic-E20</p>
-                    <p>Giá: 420.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Additivies/voltronic-e50.jpg" alt="voltronicXM" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Voltronic-E50</p>
-                    <p>Giá: 450.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Additivies/voltronic-e59.jpg" alt="voltronic10w40" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Voltronic-E59</p>
-                    <p>Giá: 420.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+        {{/each}}
     </div>
 </div>

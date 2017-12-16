@@ -38,6 +38,7 @@ app.set("view engine", "hbs");
 //Controller
 
 //Route Product
+require("./_controller/productController")(app);
 require("./_controller/pay-productController")(app);
 //Route HomePage
 require("./_controller/homePageController")(app);

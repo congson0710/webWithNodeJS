@@ -2,54 +2,22 @@
 
 <!-- body -->
 <div class="container" style="margin-bottom: 20px">
+
     <div class="row">
+        {{#each prod}}
         <div class="col-md-3">
             <div class="img-thumbnail">
-                <img src="product/Oil/motul10w40.PNG" alt="motul" height="250" width="230">
+                <img src="{{ProdImage}}" alt="motul" height="250" width="230">
                 <div class="caption">
-                    <p class="h5">Motul 300v 4T 10W40 France</p>
-                    <p>Giá: 400.000 VNĐ</p>
+                    <p class="h5">{{ProdName}}</p>
+                    <p>Giá: {{ProdPrice}} VNĐ</p>
                     <p>
                         <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Oil/motul15w50.PNG" alt="motul300v15w50" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Motul 300v 4T 15W50 Eu</p>
-                    <p>Giá: 420.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Oil/VoltronicXM.JPG" alt="voltronicXM" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Voltronic XM</p>
-                    <p>Giá: 450.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Oil/Voltronic10w40.JPG" alt="voltronic10w40" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Voltronic 10W40</p>
-                    <p>Giá: 420.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+        {{/each}}
     </div>
+
 </div>

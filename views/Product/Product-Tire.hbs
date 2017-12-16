@@ -3,53 +3,19 @@
 <!-- body -->
 <div class="container" style="margin-bottom: 20px">
     <div class="row">
+        {{#each prod}}
         <div class="col-md-3">
             <div class="img-thumbnail">
-                <img src="product/Tire/michelin80-100.jpg" alt="michelin8/10" height="250" width="230">
+                <img src="{{ProdImage}}" alt="michelin8/10" height="250" width="230">
                 <div class="caption">
-                    <p class="h5">Michelin 80-100</p>
-                    <p>Giá: 400.000 VNĐ</p>
+                    <p class="h5">{{ProdName}}</p>
+                    <p>Giá: {{ProdPrice}} VNĐ</p>
                     <p>
                         <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Tire/michelin90-110.jpg" alt="michelin9/11" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Michelin 90-110</p>
-                    <p>Giá: 420.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Tire/michelin90-120.jpg" alt="michelin9/12" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Michelin 90-120</p>
-                    <p>Giá: 450.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Tire/michelin90-130.jpg" alt="michelin9/13" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Michelin 90-130</p>
-                    <p>Giá: 420.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+        {{/each}}
     </div>
 </div>

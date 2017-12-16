@@ -1,13 +1,22 @@
-const model = require("../_model/userModel");
+const model = require("../_model/productModel");
 
 module.exports = app => {
   app.get("/product-oil", (req, res) => {
-    res.render("Product/Product-Oil");
+    model.getProdByType("Oil").then(arrayProd => {
+      var ve = { prod: arrayProd };
+      res.render("Product/Product-Oil", ve);
+    });
   });
   app.get("/product-tire", (req, res) => {
-    res.render("Product/Product-Tire");
+    model.getProdByType("Tire").then(arrayProd => {
+      var ve = { prod: arrayProd };
+      res.render("Product/Product-Tire", ve);
+    });
   });
   app.get("/product-additivies", (req, res) => {
-    res.render("Product/Product-Additivies");
+    model.getProdByType("Additivy").then(arrayProd => {
+      var ve = { prod: arrayProd };
+      res.render("Product/Product-Additivies", ve);
+    });
   });
 };
