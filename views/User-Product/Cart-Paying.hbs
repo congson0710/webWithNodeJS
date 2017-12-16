@@ -19,11 +19,12 @@
                             </tr>
                         </thead>
                         <tbody align="center">
+                            {{#each prod}}
                             <tr>
                                 <th scope="row" class="id">1</th>
-                                <td>Motul 300V 4T 10W40 France</td>
+                                <td>{{ProdName}}</td>
                                 <td>Còn hàng</td>
-                                <td class="price">400000</td>
+                                <td class="price">{{ProdPrice}}</td>
                                 <td align="center">
                                     <div class="input-group">
                                         <span class="input-group-btn">
@@ -35,8 +36,9 @@
                                         </span>
                                     </div>
                                 </td>
-                                <td class="subTotal">400000</td>
+                                <td class="subTotal">{{ProdPrice}}</td>
                             </tr>
+                            {{/each}} {{!--
                             <tr>
                                 <th scope="row">2</th>
                                 <td>Motul 300V 4T 10W40 France</td>
@@ -72,11 +74,11 @@
                                     </div>
                                 </td>
                                 <td class="subTotal">400000</td>
-                            </tr>
+                            </tr> --}}
                             <tr class="totalPaying">
                                 <th scope="row">Tổng cộng</th>
                                 <td colspan="4"></td>
-                                <td class="totalPrice">1200000</td>
+                                <td class="totalPrice">0</td>
                             </tr>
                         </tbody>
                     </table>

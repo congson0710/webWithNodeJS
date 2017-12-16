@@ -26,7 +26,10 @@ app.engine(
     layoutsDir: "views/_layouts/",
     partialsDir: "views/partials/",
     helpers: {
-      section: sections()
+      section: sections(),
+      formatMoney: number => {
+        return "$" + number;
+      }
     }
   })
 );

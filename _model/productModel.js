@@ -11,12 +11,9 @@ exports.getProdByType = function(productType) {
   return db.load(sql);
 };
 //get product by name
-exports.getProdByName = productName => {
-  var product = {
-    prodName: productName
-  };
+exports.getProdByName = product => {
   var sql = mustache.render(
-    'select * from product where ProdName = "{{prodName}}"',
+    'select * from product where ProdName = "{{ProdName}}"',
     product
   );
   return db.load(sql);

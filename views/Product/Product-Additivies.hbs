@@ -4,18 +4,18 @@
 <div class="container" style="margin-bottom: 20px">
     <div class="row">
         {{#each prod}}
-        <div class="col-md-3">
+        <form class="col-md-3" action="" method="post">
             <div class="img-thumbnail">
                 <img src="{{ProdImage}}" alt="motul" height="250" width="230">
                 <div class="caption">
-                    <p class="h5">{{ProdName}}</p>
+                    <p class="h5" name="ProdName">{{ProdName}}</p>
                     <p>Giá: {{ProdPrice}} VNĐ</p>
                     <p>
-                        <button href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</button>
+                        <button href="" class="btn btn-primary" role="button" type="submit">Thêm vào giỏ hàng</button>
                     </p>
                 </div>
             </div>
-        </div>
+        </form>
         {{/each}}
     </div>
 </div>

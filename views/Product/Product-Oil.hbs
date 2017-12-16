@@ -2,22 +2,38 @@
 
 <!-- body -->
 <div class="container" style="margin-bottom: 20px">
-
     <div class="row">
         {{#each prod}}
         <div class="col-md-3">
             <div class="img-thumbnail">
                 <img src="{{ProdImage}}" alt="motul" height="250" width="230">
                 <div class="caption">
-                    <p class="h5">{{ProdName}}</p>
-                    <p>Giá: {{ProdPrice}} VNĐ</p>
+                    <p class="h5 prodName">{{ProdName}}</p>
+                    <p>Giá: {{formatMoney ProdPrice}} VNĐ</p>
                     <p>
-                        <button href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-primary btnAddCart">Thêm vào giỏ hàng</button>
                     </p>
                 </div>
             </div>
         </div>
         {{/each}}
     </div>
-
 </div>
+
+{{#section 'js'}}
+<script>
+    $(document).ready(function () {
+        $(".btnAddCart").click(function () {
+            var parent = $(this).parents('.caption');
+            var ProductName = parent.find('.prodName').text();
+            var prod = {
+                ProdName: ProductName
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/cart-paying',
+                data: prod
+            });
+        })
+    })
+</script> {{/section}}
