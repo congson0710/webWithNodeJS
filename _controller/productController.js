@@ -4,7 +4,6 @@ module.exports = app => {
   app.get("/product-oil", (req, res) => {
     model.getProdByType("Oil").then(arrayProd => {
       var ve = { prod: arrayProd };
-      console.log("array: ", ve);
       res.render("Product/Product-Oil", ve);
     });
   });
@@ -21,30 +20,38 @@ module.exports = app => {
     });
   });
 
-  // //
-  // app.post("/product-oil", (req, res) => {
-  //   model.getProdByName(req.body).then(arrayProd => {
-  //     var ve = {
-  //       prod: arrayProd
-  //     };
-  //     res.render("User-Product/Cart-Paying", ve);
-  //   });
-  // });
-  // app.post("/product-tire", (req, res) => {
-  //   model.getProdByName(req.body).then(arrayProd => {
-  //     var ve = {
-  //       prod: arrayProd
-  //     };
-  //     res.render("User-Product/Cart-Paying", ve);
-  //     res.redirect("/cart-paying");
-  //   });
-  // });
-  // app.post("/product-additivies", (req, res) => {
-  //   model.getProdByName(req.body).then(arrayProd => {
-  //     var ve = {
-  //       prod: arrayProd
-  //     };
-  //     res.render("User-Product/Cart-Paying", ve);
-  //   });
-  // });
+  //
+  app.post("/product-oil", (req, res) => {
+    //check if product already exists in cart table
+    model.getProdByName(req.body).then(arrayProd => {
+      console.log("prod: ", req.body);
+      if (arrayProd.length > 0) {
+        model.updateProdInfo(arrayProd[0]).then(changedRows => {});
+      } else {
+        model.insertProdToCart(req.body).then(insertID => {
+          console.log("insert success: ", insertID);
+        });
+      }
+    });
+  });
+  app.post("/product-tire", (req, res) => {
+    //check if product already exists in cart table
+    model.getProdByName(req.body).then(arrayProd => {
+      if (arrayProd.length > 0) {
+        model.updateProdInfo(arrayProd[0]).then(changedRows => {});
+      } else {
+        model.insertProdToCart(req.body).then(insertID => {});
+      }
+    });
+  });
+  app.post("/product-additivies", (req, res) => {
+    //check if product already exists in cart table
+    model.getProdByName(req.body).then(arrayProd => {
+      if (arrayProd.length > 0) {
+        model.updateProdInfo(arrayProd[0]).then(changedRows => {});
+      } else {
+        model.insertProdToCart(req.body).then(insertID => {});
+      }
+    });
+  });
 };

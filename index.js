@@ -37,6 +37,7 @@ app.engine(
 app.use(express.static(path.resolve(__dirname, "public")));
 
 app.set("view engine", "hbs");
+app.set("views", path.join(__dirname, "views"));
 
 //Controller
 

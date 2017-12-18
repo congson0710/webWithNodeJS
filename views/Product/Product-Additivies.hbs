@@ -4,14 +4,14 @@
 <div class="container" style="margin-bottom: 20px">
     <div class="row">
         {{#each prod}}
-        <form class="col-md-3" action="" method="post">
+        <form class="col-md-3">
             <div class="img-thumbnail">
                 <img src="{{ProdImage}}" alt="motul" height="250" width="230">
                 <div class="caption">
-                    <p class="h5" name="ProdName">{{ProdName}}</p>
-                    <p>Giá: {{ProdPrice}} VNĐ</p>
+                    <p class="h5 prodName" name="ProdName">{{ProdName}}</p>
+                    <p class="prodPrice"> {{ProdPrice}}</p>
                     <p>
-                        <button href="" class="btn btn-primary" role="button" type="submit">Thêm vào giỏ hàng</button>
+                        <button href="" class="btn btn-primary">Thêm vào giỏ hàng</button>
                     </p>
                 </div>
             </div>
@@ -19,3 +19,28 @@
         {{/each}}
     </div>
 </div>
+
+
+{{#section 'js'}}
+<script>
+    $(document).ready(function () {
+        $('.btnAddCart').click(function () {
+            var parent = $(this).parents('.caption');
+            var ProductName = parent.find('.prodName').text();
+            var ProductPrice = parseInt(parent.find('.prodPrice').text());
+            var ProductQuantity = 1;
+            var ProductSubTotal = ProductQuantity * ProductPrice;
+            var prod = {
+                ProdName: ProductName,
+                ProdPrice: ProductPrice,
+                ProdQuantity: ProductQuantity,
+                ProdSubTotal: ProductSubTotal
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/product-additivies',
+                data: prod
+            });
+        })
+    })
+</script> {{/section}}
