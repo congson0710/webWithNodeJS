@@ -78,3 +78,28 @@ exports.update = function(sql) {
 
   return defer.promise;
 };
+
+exports.delete = function(sql) {
+  var defer = q.defer();
+
+  var connection = mysql.createConnection({
+    host: _HOST,
+    user: _USER,
+    password: _PWD,
+    database: _DB
+  });
+
+  connection.connect();
+
+  connection.query(sql, function(error, value) {
+    if (error) {
+      defer.reject(error);
+    } else {
+      defer.resolve(value.affectedRows);
+    }
+  });
+
+  connection.end();
+
+  return defer.promise;
+};
