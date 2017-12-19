@@ -12,7 +12,6 @@ module.exports = app => {
         for (var i = 0; i < arrayProd.length; i++) {
           totalPrice += arrayProd[i].ProdSubTotal;
         }
-        console.log("total price: ", totalPrice);
         const ve = {
           prod: arrayProd,
           prodTotalPrice: totalPrice
@@ -20,5 +19,18 @@ module.exports = app => {
         res.render("User-Product/Cart-Paying", ve);
       }
     });
+  });
+
+  app.post("/cart-paying", (req, res) => {
+    console.log("flag: ", req.body);
+    if (req.body.flag == 0) {
+      modelForProd.deleteListProd().then(affectedRows => {
+        console.log("delete success: ", affectedRows);
+        if (affectedRows >= 0) {
+          console.log("test");
+          res.redirect("/");
+        }
+      });
+    }
   });
 };

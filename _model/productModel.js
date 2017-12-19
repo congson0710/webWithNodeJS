@@ -54,6 +54,12 @@ exports.updateProdInfo = product => {
 
 //get list product from cart tb
 exports.getListProd = product => {
-  var sql = 'select * from cart';
+  var sql = "select * from cart";
   return db.load(sql);
-}
+};
+
+//delete list product from cart tb
+exports.deleteListProd = () => {
+  var sql = "delete from cart";
+  return db.delete(sql);
+};

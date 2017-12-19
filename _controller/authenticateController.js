@@ -20,7 +20,6 @@ module.exports = app => {
 
   //app.post("/signup")
   app.post("/signup", (req, res) => {
-    // PUT thong tin vao database
     model.insertUserInfo(req.body).then(id => {
       res.redirect("/signin");
     });

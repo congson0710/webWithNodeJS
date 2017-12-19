@@ -3,6 +3,9 @@
 
 <!-- Product table -->
 <div class="container">
+    <form id="formSubmition" action="" method="post">
+        <input id="prodId" name="flag" type="hidden" value="">
+    </form>
     <div class="row" style="margin-bottom: 20px">
         <div class="col-lg-10 offset-md-1">
             <div class="card">
@@ -48,8 +51,8 @@
                     </table>
                     <!-- Confirm button -->
                     <div class="col-md-4 offset-md-8" align="right">
-                        <button class="btn btn-primary">Xác nhận</button>
-                        <button class="btn btn-primary">Hủy</button>
+                        <button class="btn btn-primary btnConfirm">Xác nhận</button>
+                        <button class="btn btn-primary btnCancle">Hủy</button>
                     </div>
                 </div>
             </div>
@@ -60,6 +63,15 @@
 
 {{#section 'js'}}
 <script>
+    // flag = 0 means cancle || flag = 1 means confirm
+    $(".btnConfirm").click(function () {
+        $("#prodId").val(1);
+        $("#formSubmition").submit();
+    })
+    $(".btnCancle").click(function () {
+        $("#prodId").val(0);
+        $("#formSubmition").submit();
+    })
     $(".calMinus").click(function () {
         //get parents
         var parent = $(this).parents('tr');
