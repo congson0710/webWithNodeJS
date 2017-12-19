@@ -21,7 +21,7 @@
                         <tbody align="center">
                             {{#each prod}}
                             <tr>
-                                <th scope="row" class="id">1</th>
+                                <th scope="row" class="id">{{No}}</th>
                                 <td>{{ProdName}}</td>
                                 <td>Còn hàng</td>
                                 <td class="price">{{ProdPrice}}</td>
@@ -30,55 +30,19 @@
                                         <span class="input-group-btn">
                                             <button class="btn btn-secondary calMinus"> - </button>
                                         </span>
-                                        <input type="text" value="1" style="text-align: center" class="prodQuan" id="prodQuan">
+                                        <input type="text" value="{{ProdQuantity}}" style="text-align: center" class="prodQuan" id="prodQuan">
                                         <span class="input-group-btn">
                                             <button class="btn btn-secondary calPlus"> + </button>
                                         </span>
                                     </div>
                                 </td>
-                                <td class="subTotal">{{ProdPrice}}</td>
+                                <td class="subTotal">{{ProdSubTotal}}</td>
                             </tr>
-                            {{/each}} {{!--
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Motul 300V 4T 10W40 France</td>
-                                <td>Còn hàng</td>
-                                <td class="price">400000</td>
-                                <td align="center">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary calMinus"> - </button>
-                                        </span>
-                                        <input type="text" value="1" style="text-align: center" class="prodQuan" id="prodQuan">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary calPlus"> + </button>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="subTotal">400000</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Motul 300V 4T 10W40 France</td>
-                                <td>Còn hàng</td>
-                                <td class="price">400000</td>
-                                <td align="center">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary calMinus"> - </button>
-                                        </span>
-                                        <input type="text" value="1" style="text-align: center" class="prodQuan" id="prodQuan">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary calPlus"> + </button>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="subTotal">400000</td>
-                            </tr> --}}
+                            {{/each}}
                             <tr class="totalPaying">
                                 <th scope="row">Tổng cộng</th>
                                 <td colspan="4"></td>
-                                <td class="totalPrice">1200000</td>
+                                <td class="totalPrice">{{prodTotalPrice}}</td>
                             </tr>
                         </tbody>
                     </table>

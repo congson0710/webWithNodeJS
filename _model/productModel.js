@@ -51,3 +51,9 @@ exports.updateProdInfo = product => {
   console.log("sql: ", sql);
   return db.update(sql);
 };
+
+//get list product from cart tb
+exports.getListProd = product => {
+  var sql = 'select * from cart';
+  return db.load(sql);
+}
