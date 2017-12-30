@@ -1,58 +1,77 @@
-{{#section 'title'}}Trang chủ{{/section}} {{#section 'headTitle'}}Bán chạy nhất{{/section}}
-
-
+{{#section 'title'}}Trang chủ{{/section}} {{#section 'headTitle'}}Bán chạy nhất{{/section}} {{#if user}} {{#section 'authenButton'}}
+<div class="btn-group">
+    <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+        Cá Nhân
+        <span class="icon-cog icon-white"></span>
+        <span class="caret"></span>
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="">Thông tin</a>
+        <a class="dropdown-item" href="">Lịch sử</a>
+        <a class="dropdown-item" href="">Đăng xuất</a>
+    </div>
+</div>
+{{/section}} {{else}} {{#section 'authenButton'}}
+<div class="btn-group">
+    <a href="/signup">
+        <button class="btn btn-danger">
+            Đăng ký
+            <span class="icon-cog icon-white"></span>
+            <span class="caret"></span>
+        </button>
+    </a>
+    <a href="/signin">
+        <button class="btn btn-danger">
+            Đăng nhập
+            <span class="icon-cog icon-white"></span>
+            <span class="caret"></span>
+        </button>
+    </a>
+</div>
+{{/section}} {{/if}}
 
 
 <!-- body -->
 <div class="container" style="margin-bottom: 20px">
     <div class="row">
+        {{#each prod}}
         <div class="col-md-3">
             <div class="img-thumbnail">
-                <img src="product/Oil/motul10w40.PNG" alt="motul" height="250" width="230">
+                <img src="{{ProdImage}}" alt="motul" height="250" width="230">
                 <div class="caption">
-                    <p class="h5">Motul 300v 4T 10W40 France</p>
-                    <p>Giá: 400.000 VNĐ</p>
+                    <p class="h5 prodName">{{ProdName}}</p>
+                    <p class="prodPrice"> {{ProdPrice}} </p>
                     <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
+                        <button href="" class="btn btn-primary btnAddCart">Thêm vào giỏ hàng</button>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Oil/motul15w50.PNG" alt="motul300v15w50" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Motul 300v 4T 15W50 Eu</p>
-                    <p>Giá: 420.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Oil/VoltronicXM.JPG" alt="voltronicXM" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Voltronic XM</p>
-                    <p>Giá: 450.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="img-thumbnail">
-                <img src="product/Oil/Voltronic10w40.JPG" alt="voltronic10w40" height="250" width="230">
-                <div class="caption">
-                    <p class="h5">Voltronic 10W40</p>
-                    <p>Giá: 420.000 VNĐ</p>
-                    <p>
-                        <a href="" class="btn btn-primary" role="button">Thêm vào giỏ hàng</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+        {{/each}}
     </div>
 </div>
+
+
+{{#section 'js'}}
+<script>
+    $(document).ready(function () {
+        $('.btnAddCart').click(function () {
+            var parent = $(this).parents('.caption');
+            var ProductName = parent.find('.prodName').text();
+            var ProductPrice = Number(parent.find('.prodPrice').text());
+            var ProductQuantity = 1;
+            var ProductSubTotal = ProductQuantity * ProductPrice;
+            var prod = {
+                ProdName: ProductName,
+                ProdPrice: ProductPrice,
+                ProdQuantity: ProductQuantity,
+                ProdSubTotal: ProductSubTotal
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/',
+                data: prod
+            });
+        })
+    })
+</script> {{/section}}

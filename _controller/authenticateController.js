@@ -7,7 +7,10 @@ module.exports = app => {
       if (arrayUser.length > 0) {
         model.checkUserSigninInfo(req.body).then(arrayUser => {
           if (arrayUser.length > 0) {
-            res.redirect("/userhomepage");
+            req.session.user = arrayUser[0];
+            var hour = 1000 * 60 * 60 * 24;
+            req.session.cookie.maxAge = hour;
+            res.redirect("/");
           } else {
             res.redirect("/signin");
           }
@@ -23,5 +26,10 @@ module.exports = app => {
     model.insertUserInfo(req.body).then(id => {
       res.redirect("/signin");
     });
+  });
+
+  app.get("/signout", (req, res) => {
+    req.session.destroy();
+    res.redirect("/signin");
   });
 };

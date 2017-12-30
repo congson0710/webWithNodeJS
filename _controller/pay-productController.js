@@ -11,6 +11,7 @@ module.exports = app => {
       } else {
         for (var i = 0; i < arrayProd.length; i++) {
           totalPrice += arrayProd[i].ProdSubTotal;
+          arrayProd[i].No = i + 1;
         }
         const ve = {
           prod: arrayProd,
@@ -22,12 +23,9 @@ module.exports = app => {
   });
 
   app.post("/cart-paying", (req, res) => {
-    console.log("flag: ", req.body);
     if (req.body.flag == 0) {
       modelForProd.deleteListProd().then(affectedRows => {
-        console.log("delete success: ", affectedRows);
         if (affectedRows >= 0) {
-          console.log("test");
           res.redirect("/");
         }
       });
