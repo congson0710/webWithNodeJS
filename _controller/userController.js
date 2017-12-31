@@ -6,7 +6,6 @@ module.exports = app => {
   app.get("/profile", authenLoginMW, function(req, res) {
     model.getUserInfoByID(1).then(function(arrayUser) {
       var ve = { user: arrayUser[0] };
-      console.log("ve: ", ve);
       res.render("User/UserInfor", ve);
     });
   });
@@ -21,5 +20,11 @@ module.exports = app => {
   app.get("/signout", (req, res) => {
     req.session.destroy();
     res.redirect("/signin");
+  });
+
+  app.post("/profile", authenLoginMW, function(req, res) {
+    model.updateUserInfo(res.locals.user).then(function(changedRow) {
+      console.log("update success: ", changedRow);
+    });
   });
 };

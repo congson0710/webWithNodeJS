@@ -36,7 +36,6 @@ exports.insertProdToCart = product => {
     'INSERT INTO cart (ProdName,ProdQuantity,ProdPrice,ProdSubTotal) VALUES ("{{ProdName}}", "{{ProdQuantity}}", "{{ProdPrice}}", "{{ProdSubTotal}}")',
     product
   );
-  console.log("sql: ", sql);
   return db.insert(sql);
 };
 
@@ -48,7 +47,6 @@ exports.updateProdInfo = product => {
     'update cart set ProdQuantity = "{{ProdQuantity}}", ProdSubTotal = "{{ProdSubTotal}}"  where ProdName = "{{ProdName}}"',
     product
   );
-  console.log("sql: ", sql);
   return db.update(sql);
 };
 

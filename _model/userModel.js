@@ -41,3 +41,12 @@ exports.checkUserSigninInfo = userInfo => {
   );
   return db.load(sql);
 };
+
+//update user info
+exports.updateUserInfo = user => {
+  const sql = mustache.render(
+    'update user_profile set UserName = "{{UserName}}", Email = "{{Email}}", UserAddress = "{{UserAddress}}"  where UserID = "{{UserID}}"',
+    user
+  );
+  return db.update(sql);
+};
