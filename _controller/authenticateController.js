@@ -27,9 +27,4 @@ module.exports = app => {
       res.redirect("/signin");
     });
   });
-
-  app.get("/signout", (req, res) => {
-    req.session.destroy();
-    res.redirect("/signin");
-  });
 };

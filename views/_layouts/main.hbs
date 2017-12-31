@@ -50,10 +50,43 @@
                         <a class="dropdown-item" href="/product-additivies">Phụ gia</a>
                     </div>
                 </div>
-
-                {{{_sections.authenButton}}}
-
+                {{#if user}}
+                <div class="btn-group">
+                    <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+                        <i class="fa fa-cog" aria-hidden="true"></i>
+                        Cá Nhân
+                        <span class="icon-cog icon-white"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="">Thông tin</a>
+                        <a class="dropdown-item" href="">Lịch sử</a>
+                        <a class="dropdown-item" href="/signout">Đăng xuất</a>
+                    </div>
+                </div>
+                {{else}}
+                <div class="btn-group">
+                    <a href="/signup">
+                        <button class="btn btn-danger">
+                            Đăng ký
+                            <span class="icon-cog icon-white"></span>
+                            <span class="caret"></span>
+                        </button>
+                    </a>
+                    <a href="/signin">
+                        <button class="btn btn-danger">
+                            Đăng nhập
+                            <span class="icon-cog icon-white"></span>
+                            <span class="caret"></span>
+                        </button>
+                    </a>
+                </div>
+                {{/if}}
             </div>
+
+
+
+
         </div>
     </nav>
     <!-- Sliding Images -->

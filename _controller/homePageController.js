@@ -2,12 +2,9 @@ const model = require("../_model/productModel");
 const authenLoginMW = require("../_middleware/authenLogin");
 
 module.exports = app => {
-  app.get("/", function(req, res) {
+  app.get("/", authenLoginMW, function(req, res) {
     model.getProdByType("Oil").then(arrayProd => {
-      const ve = {
-        prod: arrayProd,
-        user: res.locals.user
-      };
+      const ve = { prod: arrayProd, user: res.locals.user };
       console.log("view engine: ", ve);
       res.render("HomePage/HomePage", ve);
     });
