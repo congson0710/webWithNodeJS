@@ -5,7 +5,6 @@ module.exports = app => {
   app.get("/", authenLoginMW, function(req, res) {
     model.getProdByType("Oil").then(arrayProd => {
       const ve = { prod: arrayProd, user: res.locals.user };
-      console.log("view engine: ", ve);
       res.render("HomePage/HomePage", ve);
     });
   });

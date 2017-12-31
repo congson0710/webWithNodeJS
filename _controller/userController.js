@@ -6,12 +6,9 @@ module.exports = app => {
   app.get("/profile", authenLoginMW, function(req, res) {
     model.getUserInfoByID(1).then(function(arrayUser) {
       var ve = { user: arrayUser[0] };
+      console.log("ve: ", ve);
       res.render("User/UserInfor", ve);
     });
-  });
-  //render user home page when logged in
-  app.get("/userhomepage", authenLoginMW, (req, res) => {
-    res.render("User/UserHomePage");
   });
   //render signin page
   app.get("/signin", (req, res) => {
