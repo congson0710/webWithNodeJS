@@ -23,8 +23,10 @@ module.exports = app => {
   });
 
   app.post("/profile", authenLoginMW, function(req, res) {
-    model.updateUserInfo(res.locals.user).then(function(changedRow) {
-      console.log("update success: ", changedRow);
-    });
+    model
+      .updateUserInfo(res.locals.user.UserID, req.body)
+      .then(function(changedRow) {
+        res.redirect("/profile");
+      });
   });
 };

@@ -43,10 +43,12 @@ exports.checkUserSigninInfo = userInfo => {
 };
 
 //update user info
-exports.updateUserInfo = user => {
+exports.updateUserInfo = (UserID, userNewInfo) => {
+  userNewInfo.UserID = UserID;
   const sql = mustache.render(
     'update user_profile set UserName = "{{UserName}}", Email = "{{Email}}", UserAddress = "{{UserAddress}}"  where UserID = "{{UserID}}"',
-    user
+    userNewInfo
   );
+  console.log("sql is: ", sql);
   return db.update(sql);
 };
