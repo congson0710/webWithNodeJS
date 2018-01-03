@@ -20,15 +20,15 @@ exports.getUserInfoByID = function(ID) {
 //insert 1 user into table
 exports.insertUserInfo = user => {
   const sql = mustache.render(
-    'INSERT INTO user_profile (UserName,UserPassword,Email) VALUES ("{{UserName}}", "{{UserPassword}}", "{{Email}}")',
+    'INSERT INTO user_profile (UserAccount,UserName,UserPassword,Email) VALUES ("{{UserAccount}}","{{UserName}}", "{{UserPassword}}", "{{Email}}")',
     user
   );
   return db.insert(sql);
 };
 
-exports.checkUserNameForSignin = userInfo => {
+exports.checkUserAccountForSignin = userInfo => {
   const sql = mustache.render(
-    'select * from user_profile where UserName = "{{UserName}}"',
+    'select * from user_profile where UserAccount = "{{UserAccount}}"',
     userInfo
   );
   return db.load(sql);
@@ -36,7 +36,7 @@ exports.checkUserNameForSignin = userInfo => {
 
 exports.checkUserSigninInfo = userInfo => {
   const sql = mustache.render(
-    'select * from user_profile where UserName = "{{UserName}}" and UserPassword = "{{UserPassword}}"',
+    'select * from user_profile where UserAccount = "{{UserAccount}}" and UserPassword = "{{UserPassword}}"',
     userInfo
   );
   return db.load(sql);

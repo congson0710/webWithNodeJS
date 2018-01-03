@@ -6,13 +6,16 @@
     <div class="row">
         {{#each prod}}
         <div class="col-md-3">
+            <form class="flagForm" action="" method="post">
+                <input type="hidden" value="{{ProdID}}" name="ProdID" class="value">
+            </form>
             <div class="img-thumbnail">
-                <img src="{{ProdImage}}" alt="motul" height="250" width="230">
+                <img src="{{ProdImage}}" height="250" width="230" data-prodid="" class="ProdImage">
                 <div class="caption">
                     <p class="h5 prodName">{{ProdName}}</p>
                     <p class="prodPrice"> {{ProdPrice}} </p>
                     <p>
-                        <button href="" class="btn btn-primary btnAddCart">Thêm vào giỏ hàng</button>
+                        <button class="btn btn-primary btnAddCart">Thêm vào giỏ hàng</button>
                     </p>
                 </div>
             </div>
@@ -24,24 +27,8 @@
 
 {{#section 'js'}}
 <script>
-    $(document).ready(function () {
-        $('.btnAddCart').click(function () {
-            var parent = $(this).parents('.caption');
-            var ProductName = parent.find('.prodName').text();
-            var ProductPrice = Number(parent.find('.prodPrice').text());
-            var ProductQuantity = 1;
-            var ProductSubTotal = ProductQuantity * ProductPrice;
-            var prod = {
-                ProdName: ProductName,
-                ProdPrice: ProductPrice,
-                ProdQuantity: ProductQuantity,
-                ProdSubTotal: ProductSubTotal
-            }
-            $.ajax({
-                type: 'POST',
-                url: '/',
-                data: prod
-            });
-        })
-    })
+    $(".btnAddCart").click(function () {
+        const parent = $(this).parents('.col-md-3');
+        parent.find(".flagForm").submit();
+    });
 </script> {{/section}}

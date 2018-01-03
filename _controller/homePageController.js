@@ -2,16 +2,17 @@ const model = require("../_model/productModel");
 const authenLoginMW = require("../_middleware/authenLogin");
 
 module.exports = app => {
-  app.get("/", authenLoginMW, function(req, res) {
+  app.get("/", authenLoginMW, (req, res) => {
     model.getProdByType("Oil").then(arrayProd => {
-      const ve = { prod: arrayProd, user: res.locals.user };
+      const ve = { prod: arrayProd, currentUser: res.locals.currentUser };
       res.render("HomePage/HomePage", ve);
     });
   });
 
   app.post("/", (req, res) => {
     //check if product already exists in cart table
-    model.getProdByName(req.body).then(arrayProd => {
+    model.getProdFromCartByID(req.body).then(arrayProd => {
+      console.log("prod id", req.body);
       if (arrayProd.length > 0) {
         model.updateProdInfo(arrayProd[0]).then(changedRows => {});
       } else {

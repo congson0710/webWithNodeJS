@@ -27,6 +27,7 @@ module.exports = app => {
     model.getProdByName(req.body).then(arrayProd => {
       console.log("prod: ", req.body);
       if (arrayProd.length > 0) {
+        console.log("array: ", arrayProd);
         model.updateProdInfo(arrayProd[0]).then(changedRows => {});
       } else {
         model.insertProdToCart(req.body).then(insertID => {
