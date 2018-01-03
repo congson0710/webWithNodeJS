@@ -4,10 +4,14 @@ const authenLoginMW = require("../_middleware/authenLogin");
 module.exports = app => {
   //render user profile page
   app.get("/profile", authenLoginMW, function(req, res) {
-    model.getUserInfoByID(1).then(function(arrayUser) {
+    model.getUserInfoByID(res.locals.user.UserID).then(function(arrayUser) {
       var ve = { user: arrayUser[0] };
       res.render("User/UserInfor", ve);
     });
+  });
+  // change password page
+  app.get("/changepass", authenLoginMW, function(req, res) {
+    res.render("User/Changepass");
   });
   //render signin page
   app.get("/signin", (req, res) => {
@@ -27,6 +31,14 @@ module.exports = app => {
       .updateUserInfo(res.locals.user.UserID, req.body)
       .then(function(changedRow) {
         res.redirect("/profile");
+      });
+  });
+
+  app.post("/changepass", authenLoginMW, function(req, res) {
+    model
+      .updateUserPassword(res.locals.user.UserID, req.body)
+      .then(function(changedRow) {
+        res.redirect("/changepass");
       });
   });
 };

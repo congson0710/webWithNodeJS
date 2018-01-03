@@ -49,6 +49,17 @@ exports.updateUserInfo = (UserID, userNewInfo) => {
     'update user_profile set UserName = "{{UserName}}", Email = "{{Email}}", UserAddress = "{{UserAddress}}"  where UserID = "{{UserID}}"',
     userNewInfo
   );
+
+  return db.update(sql);
+};
+
+//update user password
+exports.updateUserPassword = (UserID, newUserPassword) => {
+  newUserPassword.UserID = UserID;
+  const sql = mustache.render(
+    'update user_profile set UserPassword = "{{NewUserPassword}}" where UserID = "{{UserID}}"',
+    newUserPassword
+  );
   console.log("sql is: ", sql);
   return db.update(sql);
 };
