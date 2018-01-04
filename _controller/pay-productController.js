@@ -1,5 +1,6 @@
 const modelForUser = require("../_model/userModel");
 const modelForProd = require("../_model/productModel");
+const authenLoginMW = require("../_middleware/authenLogin");
 
 module.exports = app => {
   app.get("/cart-paying", (req, res) => {
@@ -25,13 +26,20 @@ module.exports = app => {
     });
   });
 
-  app.post("/cart-paying", (req, res) => {
+  app.post("/cart-paying", authenLoginMW, (req, res) => {
+    // cancle cart
     if (req.body.flag == 0) {
       modelForProd.deleteListProd().then(affectedRows => {
         if (affectedRows >= 0) {
           res.redirect("/");
         }
       });
+    } else if (req.body.flag == 1) {
+      //accept cart
+      if (res.local.user) {
+      } else {
+        res.redirect("/signin");
+      }
     }
   });
 };

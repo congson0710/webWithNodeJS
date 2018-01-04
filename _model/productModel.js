@@ -42,7 +42,6 @@ exports.getProdFromCartByID = product => {
 
 //insert product to cart tb by product id
 exports.insertProdToCart = product => {
-  product.CartID = 1;
   product.ProdQuantity = 1;
   var sql = mustache.render(
     'INSERT INTO cart_info (ProdID, CartID, ProdQuantity) VALUES ("{{ProdID}}", "{{CartID}}", "{{ProdQuantity}}")',
@@ -70,6 +69,11 @@ exports.getListProdFromCart = () => {
 
 //delete list product from cart tb
 exports.deleteListProd = () => {
-  var sql = "delete from cart";
+  var sql = "delete from cart_info";
   return db.delete(sql);
+};
+
+exports.getMaxCartIDFromCartTB = () => {
+  const sql = "select max(CartID) as CartID from cart";
+  return db.load(sql);
 };
