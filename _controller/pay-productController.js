@@ -3,15 +3,18 @@ const modelForProd = require("../_model/productModel");
 
 module.exports = app => {
   app.get("/cart-paying", (req, res) => {
-    modelForProd.getListProd(req.body).then(arrayProd => {
+    modelForProd.getListProdFromCart().then(arrayProd => {
+      console.log("list product:", arrayProd);
       var totalPrice = 0;
       if (arrayProd.length === 0) {
         const ve = { prodTotalPrice: totalPrice };
         res.render("User-Product/Cart-Paying", ve);
       } else {
         for (var i = 0; i < arrayProd.length; i++) {
+          arrayProd[i].ProdSubTotal =
+            arrayProd[i].ProdPrice * arrayProd[i].ProdQuantity;
           totalPrice += arrayProd[i].ProdSubTotal;
-          arrayProd[i].No = i + 1;
+          arrayProd[i].id = i + 1;
         }
         const ve = {
           prod: arrayProd,

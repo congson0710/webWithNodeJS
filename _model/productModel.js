@@ -62,8 +62,9 @@ exports.updateProdInfo = product => {
 };
 
 //get list product from cart tb
-exports.getListProd = product => {
-  var sql = "select * from cart";
+exports.getListProdFromCart = () => {
+  var sql =
+    "select product.ProdName, product.ProdPrice, cart_info.ProdQuantity, cart_info.id from product inner join cart_info on product.ProdID = cart_info.ProdID";
   return db.load(sql);
 };
 

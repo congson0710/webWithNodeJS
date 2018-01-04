@@ -14,9 +14,13 @@ module.exports = app => {
     model.getProdFromCartByID(req.body).then(arrayProd => {
       console.log("prod id", req.body);
       if (arrayProd.length > 0) {
-        model.updateProdInfo(arrayProd[0]).then(changedRows => {});
+        model.updateProdInfo(arrayProd[0]).then(changedRows => {
+          res.redirect("/");
+        });
       } else {
-        model.insertProdToCart(req.body).then(insertID => {});
+        model.insertProdToCart(req.body).then(insertID => {
+          res.redirect("/");
+        });
       }
     });
   });
