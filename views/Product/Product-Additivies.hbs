@@ -5,6 +5,9 @@
     <div class="row">
         {{#each prod}}
         <form class="col-md-3">
+            <form class="flagForm" action="" method="post">
+                <input type="hidden" value="{{ProdID}}" name="ProdID" class="value">
+            </form>
             <div class="img-thumbnail">
                 <img src="{{ProdImage}}" alt="motul" height="250" width="230">
                 <div class="caption">
@@ -23,24 +26,8 @@
 
 {{#section 'js'}}
 <script>
-    $(document).ready(function () {
-        $('.btnAddCart').click(function () {
-            var parent = $(this).parents('.caption');
-            var ProductName = parent.find('.prodName').text();
-            var ProductPrice = parseInt(parent.find('.prodPrice').text());
-            var ProductQuantity = 1;
-            var ProductSubTotal = ProductQuantity * ProductPrice;
-            var prod = {
-                ProdName: ProductName,
-                ProdPrice: ProductPrice,
-                ProdQuantity: ProductQuantity,
-                ProdSubTotal: ProductSubTotal
-            }
-            $.ajax({
-                type: 'POST',
-                url: '/product-additivies',
-                data: prod
-            });
-        })
-    })
+    $(".btnAddCart").click(function () {
+        const parent = $(this).parents('.col-md-3');
+        parent.find(".flagForm").submit();
+    });
 </script> {{/section}}

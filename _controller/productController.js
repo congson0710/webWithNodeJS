@@ -24,35 +24,79 @@ module.exports = app => {
   //
   app.post("/product-oil", (req, res) => {
     //check if product already exists in cart table
-    model.getProdByName(req.body).then(arrayProd => {
-      console.log("prod: ", req.body);
+    model.getProdFromCartByID(req.body).then(arrayProd => {
       if (arrayProd.length > 0) {
-        console.log("array: ", arrayProd);
-        model.updateProdInfo(arrayProd[0]).then(changedRows => {});
+        model.updateProdInfo(arrayProd[0]).then(changedRows => {
+          res.redirect("/product-oil");
+        });
       } else {
-        model.insertProdToCart(req.body).then(insertID => {
-          console.log("insert success: ", insertID);
+        model.getMaxCartIDFromCartTB().then(listCartID => {
+          if (listCartID[0].CartID == null) {
+            listCartID[0].CartID = 1;
+            req.body.CartID = listCartID[0].CartID;
+            model.insertProdToCart(req.body).then(insertID => {
+              res.redirect("/product-oil");
+            });
+          } else {
+            listCartID[0].CartID++;
+            req.body.CartID = listCartID[0].CartID;
+            model.insertProdToCart(req.body).then(insertID => {
+              res.redirect("/product-oil");
+            });
+          }
         });
       }
     });
   });
   app.post("/product-tire", (req, res) => {
     //check if product already exists in cart table
-    model.getProdByName(req.body).then(arrayProd => {
+    model.getProdFromCartByID(req.body).then(arrayProd => {
       if (arrayProd.length > 0) {
-        model.updateProdInfo(arrayProd[0]).then(changedRows => {});
+        model.updateProdInfo(arrayProd[0]).then(changedRows => {
+          res.redirect("/product-tire");
+        });
       } else {
-        model.insertProdToCart(req.body).then(insertID => {});
+        model.getMaxCartIDFromCartTB().then(listCartID => {
+          if (listCartID[0].CartID == null) {
+            listCartID[0].CartID = 1;
+            req.body.CartID = listCartID[0].CartID;
+            model.insertProdToCart(req.body).then(insertID => {
+              res.redirect("/product-tire");
+            });
+          } else {
+            listCartID[0].CartID++;
+            req.body.CartID = listCartID[0].CartID;
+            model.insertProdToCart(req.body).then(insertID => {
+              res.redirect("/product-tire");
+            });
+          }
+        });
       }
     });
   });
   app.post("/product-additivies", (req, res) => {
     //check if product already exists in cart table
-    model.getProdByName(req.body).then(arrayProd => {
+    model.getProdFromCartByID(req.body).then(arrayProd => {
       if (arrayProd.length > 0) {
-        model.updateProdInfo(arrayProd[0]).then(changedRows => {});
+        model.updateProdInfo(arrayProd[0]).then(changedRows => {
+          res.redirect("/product-additivies");
+        });
       } else {
-        model.insertProdToCart(req.body).then(insertID => {});
+        model.getMaxCartIDFromCartTB().then(listCartID => {
+          if (listCartID[0].CartID == null) {
+            listCartID[0].CartID = 1;
+            req.body.CartID = listCartID[0].CartID;
+            model.insertProdToCart(req.body).then(insertID => {
+              res.redirect("/product-additivies");
+            });
+          } else {
+            listCartID[0].CartID++;
+            req.body.CartID = listCartID[0].CartID;
+            model.insertProdToCart(req.body).then(insertID => {
+              res.redirect("/product-additivies");
+            });
+          }
+        });
       }
     });
   });
