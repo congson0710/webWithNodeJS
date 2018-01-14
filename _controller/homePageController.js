@@ -18,7 +18,6 @@ module.exports = app => {
         });
       } else {
         model.getMaxCartIDFromCartTB().then(listCartID => {
-          console.log("list id:", listCartID);
           if (listCartID[0].CartID == null) {
             listCartID[0].CartID = 1;
             req.body.CartID = listCartID[0].CartID;

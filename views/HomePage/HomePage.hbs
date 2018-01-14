@@ -7,7 +7,7 @@
         {{#each prod}}
         <div class="col-md-3">
             <form class="flagForm" action="" method="post">
-                <input type="hidden" value="{{ProdID}}" name="ProdID" class="value">
+                <input type="hidden" value="{{ProdID}}" name="ProdID" class="valueProdID">
             </form>
             <div class="img-thumbnail">
                 <img src="{{ProdImage}}" height="250" width="230" data-prodid="" class="ProdImage">
@@ -29,6 +29,16 @@
 <script>
     $(".btnAddCart").click(function () {
         const parent = $(this).parents('.col-md-3');
-        parent.find(".flagForm").submit();
+        const ProdID = parent.find(".valueProdID").val();
+        console.log("id", ProdID)
+        const myStorage = window.localStorage;
+        var product = {
+            ProdID: ProdID
+        }
+
+        //myStorage.clear();
+        myStorage.setItem("storageName", "temp-cart ");
+        myStorage.setItem("product", JSON.stringify(product));
+        console.log("storage: ", myStorage);
     });
 </script> {{/section}}

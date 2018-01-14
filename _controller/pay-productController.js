@@ -1,5 +1,6 @@
 const modelForUser = require("../_model/userModel");
 const modelForProd = require("../_model/productModel");
+const modelForCart = require("../_model/cartModel");
 const authenLoginMW = require("../_middleware/authenLogin");
 
 module.exports = app => {
