@@ -44,7 +44,7 @@ exports.getProdFromCartByID = product => {
 exports.insertProdToCart = product => {
   product.ProdQuantity = 1;
   var sql = mustache.render(
-    'INSERT INTO cart_info (ProdID, CartID, ProdQuantity) VALUES ("{{ProdID}}", "{{CartID}}", "{{ProdQuantity}}")',
+    'INSERT INTO temp_cart (ProdID, ProdQuantity) VALUES ("{{ProdID}}",  "{{ProdQuantity}}")',
     product
   );
   return db.insert(sql);
@@ -52,18 +52,18 @@ exports.insertProdToCart = product => {
 
 //update product info from cart tb
 exports.updateProdInfo = product => {
+  console.log("prodid: ", product);
   var sql = mustache.render(
-    'update cart_info set ProdQuantity = ProdQuantity + 1 where ProdID = "{{ProdID}}"',
+    'update temp_cart set ProdQuantity = ProdQuantity + 1 where ProdID = "{{ProdID}}"',
     product
   );
-  console.log("update sql: ", sql);
   return db.update(sql);
 };
 
 //get list product from cart tb
 exports.getListProdFromCart = () => {
   var sql =
-    "select product.ProdName, product.ProdPrice, cart_info.ProdQuantity, cart_info.id from product inner join cart_info on product.ProdID = cart_info.ProdID";
+    "select product.ProdName, product.ProdPrice, temp_cart.ProdQuantity, temp_cart.id from product inner join temp_cart on product.ProdID = cart_info.ProdID";
   return db.load(sql);
 };
 
@@ -75,5 +75,22 @@ exports.deleteListProd = () => {
 
 exports.getMaxCartIDFromCartTB = () => {
   const sql = "select max(CartID) as CartID from cart";
+  return db.load(sql);
+};
+
+//temp cart
+exports.getProdFromTempCartByID = ProdID => {
+  const sql = mustache.render(
+    'select * from temp_cart where ProdID = "{{ProdID}}"',
+    ProdID
+  );
+  return db.load(sql);
+};
+
+exports.getProdFromProdTBByID = product => {
+  const sql = mustache.render(
+    'select * from product where ProdID = "{{ProdID}}"',
+    product
+  );
   return db.load(sql);
 };

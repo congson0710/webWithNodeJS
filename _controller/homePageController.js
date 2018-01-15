@@ -11,26 +11,14 @@ module.exports = app => {
 
   app.post("/", (req, res) => {
     //check if product already exists in cart table
-    model.getProdFromCartByID(req.body).then(arrayProd => {
+    model.getProdFromTempCartByID(req.body).then(arrayProd => {
       if (arrayProd.length > 0) {
         model.updateProdInfo(arrayProd[0]).then(changedRows => {
           res.redirect("/");
         });
       } else {
-        model.getMaxCartIDFromCartTB().then(listCartID => {
-          if (listCartID[0].CartID == null) {
-            listCartID[0].CartID = 1;
-            req.body.CartID = listCartID[0].CartID;
-            model.insertProdToCart(req.body).then(insertID => {
-              res.redirect("/");
-            });
-          } else {
-            listCartID[0].CartID++;
-            req.body.CartID = listCartID[0].CartID;
-            model.insertProdToCart(req.body).then(insertID => {
-              res.redirect("/");
-            });
-          }
+        model.insertProdToCart(req.body).then(insertID => {
+          res.redirect("/");
         });
       }
     });

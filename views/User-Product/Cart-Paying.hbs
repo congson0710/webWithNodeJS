@@ -63,6 +63,18 @@
 
 {{#section 'js'}}
 <script>
+    $(document).ready(() => {
+        const myStorage = window.localStorage
+        const temp_cart = myStorage.getItem('temp_cart');
+        $.ajax({
+            type: 'POST',
+            url: '/cart-paying',
+            data: temp_cart,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+    })
+
     // flag = 0 means cancle || flag = 1 means confirm
     $(".btnConfirm").click(function () {
         $("#prodId").val(1);
