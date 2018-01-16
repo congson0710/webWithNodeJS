@@ -44,9 +44,8 @@ module.exports = app => {
     //   }
     // }
     // modelForProd.getProdFromProdTBByID(req.body).then(listProd => {});
-    console.log("id:", req.body);
 
     const data = req.body;
-    console.log("data:", data);
+    console.log("data: ", data);
   });
 };

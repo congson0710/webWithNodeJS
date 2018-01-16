@@ -33,12 +33,9 @@
             temp_cart: []
         }
 
-
-
         $(".btnAddToCart").click(function () {
-            var parent = $(this).parents(".img-thumbnail");
-            //parent.find(".flagForm").submit();
-            const chooseProdID = parent.find(".valueProdID").val();
+            const parent = $(this).parents(".img-thumbnail");
+            const chooseProdID = Number(parent.find(".valueProdID").val());
 
             temp_cart.temp_cart.map(({ ProdID }) => ProdID).includes(chooseProdID) ? temp_cart.temp_cart.map(product => (
                 product.ProdID === chooseProdID ? { ...product, ProdQuantity: product.ProdQuantity++ } : product
@@ -49,6 +46,7 @@
                 });
 
             myStorage.setItem('temp_cart', JSON.stringify(temp_cart));
+
         });
     })
 </script> {{/section}}
