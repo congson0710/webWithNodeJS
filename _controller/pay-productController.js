@@ -5,47 +5,17 @@ const authenLoginMW = require("../_middleware/authenLogin");
 
 module.exports = app => {
   app.get("/cart-paying", (req, res) => {
-    // modelForProd.getListProdFromCart().then(arrayProd => {
-    //   var totalPrice = 0;
-    //   if (arrayProd.length === 0) {
-    //     const ve = { prodTotalPrice: totalPrice };
-    //     res.render("User-Product/Cart-Paying", ve);
-    //   } else {
-    //     for (var i = 0; i < arrayProd.length; i++) {
-    //       arrayProd[i].ProdSubTotal =
-    //         arrayProd[i].ProdPrice * arrayProd[i].ProdQuantity;
-    //       totalPrice += arrayProd[i].ProdSubTotal;
-    //       arrayProd[i].id = i + 1;
-    //     }
-    //     const ve = {
-    //       prod: arrayProd,
-    //       prodTotalPrice: totalPrice
-    //     };
-    //     res.render("User-Product/Cart-Paying", ve);
-    //   }
-    // });
-
     res.render("User-Product/Cart-Paying");
   });
 
-  app.post("/cart-paying", authenLoginMW, (req, res) => {
-    // cancle cart
-    // if (req.body.flag == 0) {
-    //   modelForProd.deleteListProd().then(affectedRows => {
-    //     if (affectedRows >= 0) {
-    //       res.redirect("/");
-    //     }
-    //   });
-    // } else if (req.body.flag == 1) {
-    //   //accept cart
-    //   if (res.local.user) {
-    //   } else {
-    //     res.redirect("/signin");
-    //   }
-    // }
-    // modelForProd.getProdFromProdTBByID(req.body).then(listProd => {});
-
-    const data = req.body;
-    console.log("data: ", data);
+  app.post("/cart-paying", authenLoginMW, async (req, res) => {
+    const myCart = req.body;
+    const cart = await Promise.all(
+      myCart.temp_cart.map(async product => {
+        let productInfo = await modelForProd.getProdFromProdTBByID(product);
+        return { ...product, ...productInfo[0] };
+      })
+    );
+    res.send(cart);
   });
 };

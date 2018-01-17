@@ -1,14 +1,14 @@
-const model = require("../_model/userModel");
+const modelForUser = require("../_model/userModel");
 
 module.exports = app => {
   // app.post("/signin")
   app.post("/signin", async (req, res) => {
-    const arrayUser = await model.checkUserAccountForSignin(req.body);
-    const accUser = await model.checkUserSigninInfo(req.body);
+    const existAccount = await modelForUser.checkUserAccountForSignin(req.body);
+    const verifyAccAndPass = await modelForUser.checkUserSigninInfo(req.body);
 
-    if (arrayUser.length !== 0 && accUser !== 0) {
-      req.session.currentUser = arrayUser[0];
-      var hour = 1000 * 60 * 60 * 24;
+    if (existAccount !== 0 && verifyAccAndPass !== 0) {
+      req.session.currentUser = verifyAccAndPass[0];
+      let hour = 1000 * 60 * 10;
       req.session.cookie.maxAge = hour;
       res.redirect("/");
     } else {

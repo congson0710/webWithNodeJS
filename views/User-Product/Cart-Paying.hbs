@@ -21,10 +21,11 @@
                                 <th scope="col">Thành tiền</th>
                             </tr>
                         </thead>
-                        <tbody align="center">
-                            {{#each prod}}
+                        <tbody align="center" id="tbody">
+                            <form id="postCart" action="" method="post"></form>
+                            {{#each myCart}}
                             <tr>
-                                <th scope="row" class="id">{{id}}</th>
+                                <th scope="row" class="id">{{ProdID}}</th>
                                 <td>{{ProdName}}</td>
                                 <td>Còn hàng</td>
                                 <td class="price">{{ProdPrice}}</td>
@@ -62,6 +63,30 @@
 
 
 {{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+<script id="entry-template" type="text/x-handlebars-template">
+
+<tr>
+    <th scope="row" class="id">{{id}}</th>
+    <td>{{ProdName}}</td>
+    <td>Còn hàng</td>
+    <td class="price">{{ProdPrice}}</td>
+    <td align="center">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-secondary calMinus"> - </button>
+            </span>
+            <input type="text" value="{{ProdQuantity}}" style="text-align: center" class="prodQuan" id="prodQuan">
+            <span class="input-group-btn">
+                <button class="btn btn-secondary calPlus"> + </button>
+            </span>
+        </div>
+    </td>
+    <td class="subTotal">{{ProdSubTotal}}</td>
+</tr>
+
+</script>
+
 <script>
     $(document).ready(() => {
         const myStorage = window.localStorage
@@ -72,6 +97,46 @@
             data: temp_cart,
             dataType: 'json',
             contentType: 'application/json'
+        }).then((cart) => {
+            let html = ""
+            cart.forEach(({ ProdID, ProdName, ProdPrice, ProdQuantity }) => {
+                let ProdSubTotal = ProdPrice * ProdQuantity
+                html += `<tr>
+                            <th scope="row" class="id">${ProdID}</th>
+                            <td>${ProdName}</td>
+                            <td>Còn hàng</td>
+                            <td class="price">${ProdPrice}</td>
+                            <td align="center">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-secondary calMinus"> - </button>
+                                    </span>
+                                    <input type="text" value="${ProdQuantity}" style="text-align: center" class="prodQuan" id="prodQuan">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-secondary calPlus"> + </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="subTotal">${ProdSubTotal}</td>
+                        </tr>`
+            })
+            $("#tbody").append(html);
+
+            $(".calMinus").click(function () {
+                //get parents
+                var parent = $(this).parents('tr');
+                //plus or minus
+                var IncOrDec = -1;
+                modifyQuanTityAndPrice(parent, IncOrDec);
+            });
+
+            $(".calPlus").click(function () {
+                //get parents
+                var parent = $(this).parents('tr');
+                //plus or minus
+                var IncOrDec = 1;
+                modifyQuanTityAndPrice(parent, IncOrDec);
+            });
         })
     })
 
@@ -84,21 +149,7 @@
         $("#prodId").val(0);
         $("#formSubmition").submit();
     })
-    $(".calMinus").click(function () {
-        //get parents
-        var parent = $(this).parents('tr');
-        //plus or minus
-        var IncOrDec = -1;
-        modifyQuanTityAndPrice(parent, IncOrDec);
-    });
 
-    $(".calPlus").click(function () {
-        //get parents
-        var parent = $(this).parents('tr');
-        //plus or minus
-        var IncOrDec = 1;
-        modifyQuanTityAndPrice(parent, IncOrDec);
-    });
 
     function modifyQuanTityAndPrice(parent, IncOrDec) {
         var curQuan = parseInt(parent.find(".prodQuan").val());
