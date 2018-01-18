@@ -67,30 +67,18 @@ exports.getListProdFromCart = () => {
   return db.load(sql);
 };
 
-//delete list product from cart tb
-exports.deleteListProd = () => {
-  var sql = "delete from cart_info";
-  return db.delete(sql);
-};
-
-exports.getMaxCartIDFromCartTB = () => {
-  const sql = "select max(CartID) as CartID from cart";
-  return db.load(sql);
-};
-
-//temp cart
-exports.getProdFromTempCartByID = ProdID => {
-  const sql = mustache.render(
-    'select * from temp_cart where ProdID = "{{ProdID}}"',
-    ProdID
-  );
-  return db.load(sql);
-};
-
 exports.getProdFromProdTBByID = product => {
   const sql = mustache.render(
     'select * from product where ProdID = "{{ProdID}}"',
     product
   );
   return db.load(sql);
+};
+
+exports.updateProdQuanInProdTB = product => {
+  const sql = mustache.render(
+    'update product set product.ProdQuantityLeft = product.ProdQuantityLeft - {{ProdQuantity}} where product.ProdID = "{{ProdID}}"',
+    product
+  );
+  return db.update(sql);
 };

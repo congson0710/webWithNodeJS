@@ -23,18 +23,31 @@ module.exports = app => {
     }
   );
 
-  app.post("/confirm-pay-cart", (req, res) => {
-    let time = new Date();
-    let month = time.getUTCMonth() + 1; //months from 1-12
-    let day = time.getUTCDate();
-    let year = time.getUTCFullYear();
+  app.post("/confirm-pay-cart", async (req, res) => {
+    // let time = new Date();
+    // let month = time.getUTCMonth() + 1; //months from 1-12
+    // let day = time.getUTCDate();
+    // let year = time.getUTCFullYear();
 
-    req.session.currentUser.currentTime = day + "/" + month + "/" + year;
+    req.session.currentUser.currentTime = Date.now();
 
-    req.body.formSubmitton == 1
-      ? modelForCart.addtCartForUSer(req.session.currentUser).then(insertID => {
-          console.log("tao gio hang cho user thanh cong");
-        })
-      : res.redirect("/");
+    if (req.body.formSubmitton == 1) {
+      const CartID = await modelForCart.addtCartForUSer(
+        req.session.currentUser
+      );
+
+      try {
+        req.body.temp_cart.forEach(async product => {
+          product.CartID = CartID;
+          let addedRows = await modelForCart.addProductToCart(product);
+          let updatedRows = await modelForProd.updateProdQuanInProdTB(product);
+        });
+        res.status(200).send();
+      } catch (error) {
+        res.status(400).send({ error });
+      }
+    } else {
+      res.redirect("/");
+    }
   });
 };
