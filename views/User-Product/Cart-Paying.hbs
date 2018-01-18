@@ -3,11 +3,11 @@
 
 <!-- Product table -->
 <div class="container">
-    <form id="formSubmition" action="" method="post">
-        <input id="prodId" name="flag" type="hidden" value="">
-    </form>
     <div class="row" style="margin-bottom: 20px">
         <div class="col-lg-10 offset-md-1">
+            <form id="formSubmitton" action="/confirm-pay-cart" method="post">
+                <input id="inputSubmition" type="hidden" name="formSubmitton" value="">
+            </form>
             <div class="card">
                 <div class="card-body">
                     <table class="table table-bordered">
@@ -22,7 +22,6 @@
                             </tr>
                         </thead>
                         <tbody align="center" id="tbody">
-                            <form id="postCart" action="" method="post"></form>
                             {{#each myCart}}
                             <tr>
                                 <th scope="row" class="id">{{ProdID}}</th>
@@ -91,6 +90,7 @@
     $(document).ready(() => {
         const myStorage = window.localStorage
         const temp_cart = myStorage.getItem('temp_cart');
+
         $.ajax({
             type: 'POST',
             url: '/cart-paying',
@@ -120,7 +120,12 @@
                             <td class="subTotal">${ProdSubTotal}</td>
                         </tr>`
             })
-            $("#tbody").append(html);
+            html += `<tr class="totalPaying">
+                        <th scope="row">Tổng cộng</th>
+                        <td colspan="4"></td>
+                        <td class="totalPrice">{{prodTotalPrice}}</td>
+                    </tr>`
+            $("#tbody").html(html);
 
             $(".calMinus").click(function () {
                 //get parents
@@ -142,12 +147,22 @@
 
     // flag = 0 means cancle || flag = 1 means confirm
     $(".btnConfirm").click(function () {
-        $("#prodId").val(1);
-        $("#formSubmition").submit();
+        const myStorage = window.localStorage
+        let temp_cart = JSON.parse(myStorage.getItem('temp_cart'));
+        temp_cart.formSubmitton = 1;
+        temp_cart = JSON.stringify(temp_cart)
+        $.ajax({
+            url: '/confirm-pay-cart',
+            type: 'POST',
+            data: temp_cart,
+            dataType: 'json',
+            contentType: 'application/json'
+        })
+
     })
     $(".btnCancle").click(function () {
-        $("#prodId").val(0);
-        $("#formSubmition").submit();
+        $("#inputSubmition").val(0);
+        $("#formSubmitton").submit();
     })
 
 

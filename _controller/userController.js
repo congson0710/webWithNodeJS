@@ -3,14 +3,14 @@ const authenLoginMW = require("../_middleware/authenLogin");
 
 module.exports = app => {
   //render user profile page
-  app.get("/profile", authenLoginMW, function(req, res) {
+  app.get("/profile", authenLoginMW.checkLoginForLayout, function(req, res) {
     model.getUserInfoByID(res.locals.user.UserID).then(function(arrayUser) {
       var ve = { user: arrayUser[0] };
       res.render("User/UserInfor", ve);
     });
   });
   // change password page
-  app.get("/changepass", authenLoginMW, function(req, res) {
+  app.get("/changepass", authenLoginMW.checkLoginForLayout, function(req, res) {
     res.render("User/Changepass");
   });
   //render signin page
@@ -26,7 +26,7 @@ module.exports = app => {
     res.redirect("/signin");
   });
 
-  app.post("/profile", authenLoginMW, function(req, res) {
+  app.post("/profile", authenLoginMW.checkLoginForLayout, function(req, res) {
     model
       .updateUserInfo(res.locals.user.UserID, req.body)
       .then(function(changedRow) {
@@ -34,7 +34,10 @@ module.exports = app => {
       });
   });
 
-  app.post("/changepass", authenLoginMW, function(req, res) {
+  app.post("/changepass", authenLoginMW.checkLoginForLayout, function(
+    req,
+    res
+  ) {
     model
       .updateUserPassword(res.locals.user.UserID, req.body)
       .then(function(changedRow) {

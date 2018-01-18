@@ -1,15 +1,14 @@
 var db = require("../_helper/database");
 var mustache = require("mustache");
 
-exports.insertCartToUSer = (cart, user) => {
+exports.addtCartForUSer = currentUser => {
   var cart = {
-    CartID: cart.CartID,
-    UserID: user.UserID
+    UserID: currentUser.UserID,
+    Date: currentUser.currentTime
   };
   const sql = mustache.render(
-    'insert into cart (UserID, CartID) values ("{{UserID}}", "{{CartID}}")',
+    'insert into cart (UserID, Date) values ("{{UserID}}", "{{Date}}")',
     cart
   );
-  console.log("sql is:", sql);
   return db.insert(sql);
 };

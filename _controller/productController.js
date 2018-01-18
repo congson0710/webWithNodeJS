@@ -2,24 +2,28 @@ const model = require("../_model/productModel");
 const authenLoginMW = require("../_middleware/authenLogin");
 
 module.exports = app => {
-  app.get("/product-oil", authenLoginMW, (req, res) => {
+  app.get("/product-oil", authenLoginMW.checkLoginForLayout, (req, res) => {
     model.getProdByType("Oil").then(arrayProd => {
       var ve = { prod: arrayProd };
       res.render("Product/Product-Oil", ve);
     });
   });
-  app.get("/product-tire", authenLoginMW, (req, res) => {
+  app.get("/product-tire", authenLoginMW.checkLoginForLayout, (req, res) => {
     model.getProdByType("Tire").then(arrayProd => {
       var ve = { prod: arrayProd };
       res.render("Product/Product-Tire", ve);
     });
   });
-  app.get("/product-additivies", authenLoginMW, (req, res) => {
-    model.getProdByType("Additivy").then(arrayProd => {
-      var ve = { prod: arrayProd };
-      res.render("Product/Product-Additivies", ve);
-    });
-  });
+  app.get(
+    "/product-additivies",
+    authenLoginMW.checkLoginForLayout,
+    (req, res) => {
+      model.getProdByType("Additivy").then(arrayProd => {
+        var ve = { prod: arrayProd };
+        res.render("Product/Product-Additivies", ve);
+      });
+    }
+  );
 
   //
   app.post("/product-oil", (req, res) => {

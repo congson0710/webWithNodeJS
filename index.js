@@ -75,6 +75,7 @@ require("./_controller/authenticateController")(app);
 //Route User
 require("./_controller/userController")(app);
 
-app.use(authMiddleware);
+app.use(authMiddleware.checkLoginForLayout);
+app.use(authMiddleware.checkLoginForPayment);
 
 app.listen(8000);
