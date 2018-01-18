@@ -1,10 +1,11 @@
-const model = require("../_model/userModel");
+const modelForUser = require("../_model/usermodel");
+const modelForCart = require("../_model/cartModel");
 const authenLoginMW = require("../_middleware/authenLogin");
 
 module.exports = app => {
   //render user profile page
   app.get("/profile", authenLoginMW.checkLogin, function(req, res) {
-    model
+    modelForUser
       .getUserInfoByID(res.locals.currentUser.UserID)
       .then(function(arrayUser) {
         var ve = { user: arrayUser[0] };
@@ -27,12 +28,17 @@ module.exports = app => {
     req.session.destroy();
     res.redirect("/signin");
   });
-  app.get("/history", authenLoginMW.checkLogin, (req, res) => {
-    res.render("User/History");
+  app.get("/history", authenLoginMW.checkLogin, async (req, res) => {
+    let myCart = await modelForCart.loadCartByUserID(res.locals.currentUser);
+    console.log("gio hang", myCart);
+    let ve = {
+      myCart
+    };
+    res.render("User/History", ve);
   });
 
   app.post("/profile", authenLoginMW.checkLogin, function(req, res) {
-    model
+    modelForUser
       .updateUserInfo(res.locals.user.UserID, req.body)
       .then(function(changedRow) {
         res.redirect("/profile");
@@ -40,7 +46,7 @@ module.exports = app => {
   });
 
   app.post("/changepass", authenLoginMW.checkLogin, function(req, res) {
-    model
+    modelForUser
       .updateUserPassword(res.locals.user.UserID, req.body)
       .then(function(changedRow) {
         res.redirect("/changepass");
