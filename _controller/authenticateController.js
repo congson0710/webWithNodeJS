@@ -7,9 +7,11 @@ module.exports = app => {
     const verifyAccAndPass = await modelForUser.checkUserSigninInfo(req.body);
 
     if (existAccount !== 0 && verifyAccAndPass !== 0) {
+      res.locals.currentUser = verifyAccAndPass[0];
       req.session.currentUser = verifyAccAndPass[0];
       let hour = 1000 * 60 * 10;
       req.session.cookie.maxAge = hour;
+      console.log("local: ", res.locals.currentUser);
       res.redirect("/");
     } else {
       res.redirect("/signin");

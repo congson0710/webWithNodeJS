@@ -2,9 +2,13 @@ const model = require("../_model/productModel");
 const authenLoginMW = require("../_middleware/authenLogin");
 
 module.exports = app => {
-  app.get("/", authenLoginMW.checkLoginForLayout, (req, res) => {
+  app.get("/", (req, res) => {
     model.getProdByType("Oil").then(arrayProd => {
-      const ve = { prod: arrayProd, currentUser: res.locals.currentUser };
+      console.log("user", res.locals.currentUser);
+      const ve = {
+        prod: arrayProd,
+        currentUser: res.locals.currentUser !== undefined
+      };
       res.render("HomePage/HomePage", ve);
     });
   });

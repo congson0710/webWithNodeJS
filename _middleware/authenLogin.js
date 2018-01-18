@@ -1,15 +1,6 @@
 const model = require("../_model/userModel");
 
-function checkLoginForLayout(req, res, next) {
-  if (req.session.currentUser) {
-    res.locals.currentUser = req.session.currentUser;
-    next();
-  } else {
-    next();
-  }
-}
-
-function checkLoginForPayment(req, res, next) {
+function checkLogin(req, res, next) {
   if (req.session.currentUser) {
     res.locals.currentUser = req.session.currentUser;
     next();
@@ -18,7 +9,12 @@ function checkLoginForPayment(req, res, next) {
   }
 }
 
+function getUser(req, res, next) {
+  res.locals.currentUser = req.session.currentUser;
+  next();
+}
+
 module.exports = {
-  checkLoginForLayout: checkLoginForLayout,
-  checkLoginForPayment: checkLoginForPayment
+  checkLogin,
+  getUser
 };

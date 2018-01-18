@@ -19,3 +19,11 @@ exports.addProductToCart = product => {
   );
   return db.insert(sql);
 };
+
+exports.loadCartByUserID = currentUser => {
+  const sql = mustache.render(
+    'select * from cart where UserID = "{{UserID}}"',
+    currentUser
+  );
+  return db.load(sql);
+};

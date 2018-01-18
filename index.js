@@ -65,6 +65,8 @@ app.use(
   })
 );
 
+app.use(authMiddleware.getUser);
+
 //Route Product
 require("./_controller/productController")(app);
 require("./_controller/pay-productController")(app);
@@ -75,7 +77,6 @@ require("./_controller/authenticateController")(app);
 //Route User
 require("./_controller/userController")(app);
 
-app.use(authMiddleware.checkLoginForLayout);
-app.use(authMiddleware.checkLoginForPayment);
+app.use(authMiddleware.checkLogin);
 
 app.listen(8000);
