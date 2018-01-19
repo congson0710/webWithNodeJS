@@ -30,7 +30,9 @@ module.exports = app => {
   });
   app.get("/history", authenLoginMW.checkLogin, async (req, res) => {
     let myCart = await modelForCart.loadCartByUserID(res.locals.currentUser);
-    console.log("gio hang", myCart);
+    for (let i = 0; i < myCart.length; i++) {
+      myCart[i].id = i + 1;
+    }
     let ve = {
       myCart
     };

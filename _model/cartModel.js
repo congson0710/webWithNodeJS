@@ -22,7 +22,7 @@ exports.addProductToCart = product => {
 
 exports.loadCartByUserID = currentUser => {
   const sql = mustache.render(
-    'select UserName, CartID, Date from cart inner join user_profile on user_profile.UserID = cart.UserID and user_profile.UserID="{{UserID}}"',
+    'select UserName, CartID, DATE_FORMAT(Date, "%d/%m/%Y, %h:%i:%s") as Date from cart inner join user_profile on user_profile.UserID = cart.UserID and user_profile.UserID="{{UserID}}"',
     currentUser
   );
   console.log("sql: ", sql);

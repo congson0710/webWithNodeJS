@@ -22,31 +22,6 @@
                             </tr>
                         </thead>
                         <tbody align="center" id="tbody">
-                            {{#each myCart}}
-                            <tr>
-                                <th scope="row" class="id">{{ProdID}}</th>
-                                <td>{{ProdName}}</td>
-                                <td>Còn hàng</td>
-                                <td class="price">{{ProdPrice}}</td>
-                                <td align="center">
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary calMinus"> - </button>
-                                        </span>
-                                        <input type="text" value="{{ProdQuantity}}" style="text-align: center" class="prodQuan" id="prodQuan">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-secondary calPlus"> + </button>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="subTotal">{{ProdSubTotal}}</td>
-                            </tr>
-                            {{/each}}
-                            <tr class="totalPaying">
-                                <th scope="row">Tổng cộng</th>
-                                <td colspan="4"></td>
-                                <td class="totalPrice">{{prodTotalPrice}}</td>
-                            </tr>
                         </tbody>
                     </table>
                     <!-- Confirm button -->
@@ -62,29 +37,6 @@
 
 
 {{#section 'js'}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
-<script id="entry-template" type="text/x-handlebars-template">
-
-<tr>
-    <th scope="row" class="id">{{id}}</th>
-    <td>{{ProdName}}</td>
-    <td>Còn hàng</td>
-    <td class="price">{{ProdPrice}}</td>
-    <td align="center">
-        <div class="input-group">
-            <span class="input-group-btn">
-                <button class="btn btn-secondary calMinus"> - </button>
-            </span>
-            <input type="text" value="{{ProdQuantity}}" style="text-align: center" class="prodQuan" id="prodQuan">
-            <span class="input-group-btn">
-                <button class="btn btn-secondary calPlus"> + </button>
-            </span>
-        </div>
-    </td>
-    <td class="subTotal">{{ProdSubTotal}}</td>
-</tr>
-
-</script>
 
 <script>
     $(document).ready(() => {
