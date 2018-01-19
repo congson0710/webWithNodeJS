@@ -109,6 +109,13 @@
             data: temp_cart,
             dataType: 'json',
             contentType: 'application/json'
+        }).then(statusCode => {
+            let html = ""
+            if (statusCode.status === "success") {
+                $("#tbody").html(html)
+                window.localStorage.clear();
+                window.location.replace("/");
+            }
         })
 
     })

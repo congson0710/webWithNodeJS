@@ -33,9 +33,9 @@ module.exports = app => {
           let addedRows = await modelForCart.addProductToCart(product);
           let updatedRows = await modelForProd.updateProdQuanInProdTB(product);
         });
-        res.status(200).send();
+        res.send({ status: "success" });
       } catch (error) {
-        res.status(400).send({ error });
+        res.send({ status: "fail" });
       }
     } else {
       res.redirect("/");
