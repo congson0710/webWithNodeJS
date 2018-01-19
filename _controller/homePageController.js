@@ -4,7 +4,6 @@ const authenLoginMW = require("../_middleware/authenLogin");
 module.exports = app => {
   app.get("/", (req, res) => {
     model.getProdByType("Oil").then(arrayProd => {
-      console.log("user", res.locals.currentUser);
       const ve = {
         prod: arrayProd,
         currentUser: res.locals.currentUser !== undefined

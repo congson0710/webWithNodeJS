@@ -8,19 +8,26 @@
                     <table class="table table-bordered">
                         <thead class="thead-dark">
                             <tr align="center">
-                                <th scope="col">Số thứ tự</th>
-                                <th scope="col">Tên người dùng</th>
                                 <th scope="col">Mã giỏ hàng</th>
-                                <th scope="col">Ngày</th>
+                                <th scope="col">Số lượng sản phẩm</th>
+                                <th scope="col">Thời gian</th>
+                                <th scope="col">Tổng tiền</th>
+                                <th scope="col">Ghi chú</th>
+
                             </tr>
                         </thead>
                         <tbody align="center" id="tbody">
                             {{#each myCart}}
                             <tr>
-                                <th scope="row" class="id">{{id}}</th>
-                                <td>{{UserName}}</td>
-                                <td>{{CartID}}</td>
-                                <td class="price">{{Date}}</td>
+                                <th scope="row" class="id">{{CartID}}</th>
+                                <td>{{ProdCount}}</td>
+                                <td>{{Date}}</td>
+                                <td>{{TotalPrice}}</td>
+                                <td>
+                                    <span>
+                                        <a href="/cart-detail" id="showDetail">Chi tiết</a>
+                                    </span>
+                                </td>
                             </tr>
                             {{/each}}
                         </tbody>

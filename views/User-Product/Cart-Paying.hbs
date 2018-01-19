@@ -154,7 +154,6 @@
     function totalPriceToPay(upperParent, newSubTotal, IncOrDec) {
         var curTotalPrice = parseInt(upperParent.find('.totalPrice').text());
 
-        console.log(newSubTotal);
         if (IncOrDec == -1)
             var newTotalPrice = curTotalPrice - newSubTotal;
         else if (IncOrDec == 1)

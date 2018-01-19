@@ -25,6 +25,13 @@ exports.loadCartByUserID = currentUser => {
     'select UserName, CartID, DATE_FORMAT(Date, "%d/%m/%Y, %h:%i:%s") as Date from cart inner join user_profile on user_profile.UserID = cart.UserID and user_profile.UserID="{{UserID}}"',
     currentUser
   );
-  console.log("sql: ", sql);
+  return db.load(sql);
+};
+
+exports.getProductsInCartByCartID = cart => {
+  const sql = mustache.render(
+    'select * from cart_info inner join cart on cart_info.CartID = cart.CartID and cart.CartID = "{{CartID}}"',
+    cart
+  );
   return db.load(sql);
 };

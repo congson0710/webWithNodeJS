@@ -52,7 +52,6 @@ exports.insertProdToCart = product => {
 
 //update product info from cart tb
 exports.updateProdInfo = product => {
-  console.log("prodid: ", product);
   var sql = mustache.render(
     'update temp_cart set ProdQuantity = ProdQuantity + 1 where ProdID = "{{ProdID}}"',
     product

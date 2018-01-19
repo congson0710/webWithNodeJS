@@ -11,7 +11,6 @@ module.exports = app => {
       req.session.currentUser = verifyAccAndPass[0];
       let hour = 1000 * 60 * 10;
       req.session.cookie.maxAge = hour;
-      console.log("local: ", res.locals.currentUser);
       res.redirect("/");
     } else {
       res.redirect("/signin");

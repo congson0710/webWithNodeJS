@@ -60,6 +60,5 @@ exports.updateUserPassword = (UserID, newUserPassword) => {
     'update user_profile set UserPassword = "{{NewUserPassword}}" where UserID = "{{UserID}}"',
     newUserPassword
   );
-  console.log("sql is: ", sql);
   return db.update(sql);
 };
