@@ -34,11 +34,17 @@
                     </table>
                     <!-- Confirm button -->
                     <div class="col-md-4 offset-md-8" align="right">
-                        <button class="btn btn-primary btnConfirm">Xác nhận</button>
-                        <button class="btn btn-primary btnCancle">Hủy</button>
+                        <button class="btn btn-primary btnConfirm" id="confirm">Ok</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+{{#section 'js'}}
+<script>
+    $("#confirm").on("click", () => {
+        window.location.replace("/")
+    })
+</script> {{/section}}

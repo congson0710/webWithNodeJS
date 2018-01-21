@@ -40,12 +40,11 @@ module.exports = app => {
         return { ...prodInfo[0] };
       })
     );
-    console.log(
-      allProdInfo.reduce((TotalPrice, ProdPrice) => ({
-        ProdPrice: TotalPrice.ProdPrice + ProdPrice.ProdPrice
-      }))
-    );
+    let tempPrice = allProdInfo.reduce((sum, amount) => ({
+      ProdPrice: sum.ProdPrice + amount.ProdPrice
+    }));
 
+    myCart[0].TotalPrice = tempPrice.ProdPrice;
     myCart[0].ProdCount = productsInCart.length;
 
     let ve = {
