@@ -33,8 +33,21 @@ module.exports = app => {
     let productsInCart = await modelForCart.getProductsInCartByCartID(
       myCart[0]
     );
+
+    let allProdInfo = await Promise.all(
+      productsInCart.map(async product => {
+        let prodInfo = await modelForCart.getProductsByProdID(product);
+        return { ...prodInfo[0] };
+      })
+    );
+    console.log(
+      allProdInfo.reduce((TotalPrice, ProdPrice) => ({
+        ProdPrice: TotalPrice.ProdPrice + ProdPrice.ProdPrice
+      }))
+    );
+
     myCart[0].ProdCount = productsInCart.length;
-    console.log("cart: ", myCart);
+
     let ve = {
       myCart
     };

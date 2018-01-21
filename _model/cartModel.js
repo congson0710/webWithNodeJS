@@ -35,3 +35,11 @@ exports.getProductsInCartByCartID = cart => {
   );
   return db.load(sql);
 };
+
+exports.getProductsByProdID = product => {
+  const sql = mustache.render(
+    'select * from product where ProdID = "{{ProdID}}"',
+    product
+  );
+  return db.load(sql);
+};
