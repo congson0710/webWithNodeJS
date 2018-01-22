@@ -41,4 +41,22 @@ module.exports = app => {
       res.redirect("/");
     }
   });
+
+  app.post("/history", authenLoginMW.checkLogin, async (req, res) => {
+    let myProducts = await modelForCart.getProductsInCartByCartID(req.body);
+
+    let myProductsInfo = await Promise.all(
+      myProducts.map(async product => {
+        let myProductInfo = await modelForCart.getProductInfoForCartDetail(
+          product
+        );
+        return { ...myProductInfo[0] };
+      })
+    );
+    res.send(myProductsInfo);
+  });
+
+  app.get("/cart-detail", authenLoginMW.checkLogin, (req, res) => {
+    res.render("User-Product/Cart-Detail");
+  });
 };

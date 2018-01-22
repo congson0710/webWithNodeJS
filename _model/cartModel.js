@@ -43,3 +43,11 @@ exports.getProductsByProdID = product => {
   );
   return db.load(sql);
 };
+
+exports.getProductInfoForCartDetail = product => {
+  const sql = mustache.render(
+    'select ProdName, ProdQuantity, ProdPrice from cart_info inner join product on cart_info.ProdID = product.ProdID and cart_info.ProdID = "{{ProdID}}"',
+    product
+  );
+  return db.load(sql);
+};

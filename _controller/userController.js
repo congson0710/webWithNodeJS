@@ -68,9 +68,4 @@ module.exports = app => {
         res.redirect("/changepass");
       });
   });
-
-  app.post("/history", authenLoginMW.checkLogin, async (req, res) => {
-    console.log("asd", req.body);
-    //let myProducts = await modelForCart.getProductsInCartByCartID(req.body);
-  });
 };

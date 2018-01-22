@@ -1,0 +1,53 @@
+{{#section 'title'}}Chi tiết{{/section}} {{#section 'headTitle'}}Chi tiết giỏ hàng{{/section}}
+
+<div class="container">
+    <div class="row" style="margin-bottom: 20px">
+        <div class="col-lg-10 offset-md-1">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr align="center">
+                                <th scope="col">Số thứ tự</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Số lượng sản phẩm</th>
+                                <th scope="col">Đơn giá</th>
+                            </tr>
+                        </thead>
+                        <tbody class="body" align="center" id="detailCart">
+
+                        </tbody>
+                    </table>
+                    <!-- Confirm button -->
+                    <div class="col-md-4 offset-md-8" align="right">
+                        <button class="btn btn-primary btnConfirm" id="back">Quay lại</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#section 'js'}}
+<script>
+    $(document).ready(() => {
+        let myStorage = window.localStorage;
+        let html = ""
+
+        let myProductsInfo = JSON.parse(myStorage.getItem("productsInfo"));
+
+        myProductsInfo.forEach(({ ProdName, ProdPrice, ProdQuantity }, i) => {
+            let Stt = i + 1;
+            html += `<tr>
+                        <th>${Stt}</th>
+                        <td>${ProdName}</td>
+                        <td>${ProdQuantity}</td>
+                        <td>${ProdPrice}</td>
+                    </tr>`
+        })
+        $("#detailCart").html(html);
+    })
+    $("#back").on("click", () => {
+        window.location.replace("/history")
+    })
+</script> {{/section}}
