@@ -9,7 +9,7 @@ module.exports = app => {
     if (existAccount !== 0 && verifyAccAndPass !== 0) {
       res.locals.currentUser = verifyAccAndPass[0];
       req.session.currentUser = verifyAccAndPass[0];
-      let hour = 1000 * 60 * 10;
+      let hour = 1000 * 60 * 60 * 24;
       req.session.cookie.maxAge = hour;
       res.redirect("/");
     } else {

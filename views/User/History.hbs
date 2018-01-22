@@ -9,24 +9,25 @@
                         <thead class="thead-dark">
                             <tr align="center">
                                 <th scope="col">Mã giỏ hàng</th>
-                                <th scope="col">Số lượng sản phẩm</th>
                                 <th scope="col">Thời gian</th>
+                                <th scope="col">Số lượng sản phẩm</th>
                                 <th scope="col">Tổng tiền</th>
                                 <th scope="col">Ghi chú</th>
 
                             </tr>
                         </thead>
-                        <tbody align="center" id="tbody">
+                        <tbody class="body" align="center" id="tbody">
                             {{#each myCart}}
-                            <tr>
-                                <th scope="row" class="id">{{CartID}}</th>
-                                <td>{{ProdCount}}</td>
+                            <tr class="detailCartBelow">
+                                <form action="" method="post" class="postID">
+                                    <input type="hidden" class="inputID" val="" name="CartID">
+                                </form>
+                                <th scope="row" class="id" name="CartID">{{CartID}}</th>
                                 <td>{{Date}}</td>
+                                <td>{{ProdCount}}</td>
                                 <td>{{TotalPrice}}</td>
                                 <td>
-                                    <span>
-                                        <a href="/cart-detail" id="showDetail">Chi tiết</a>
-                                    </span>
+                                    <a href="#" class="showDetail">Chi tiết</a>
                                 </td>
                             </tr>
                             {{/each}}
@@ -47,4 +48,15 @@
     $("#confirm").on("click", () => {
         window.location.replace("/")
     })
+</script>
+<script>
+    $(document).ready(() => {
+        $(".showDetail").on("click", () => {
+            let parent = $(".showDetail").parents(".detailCartBelow");
+            let idTag = parent.find(".id")
+            let getID = idTag.text();
+            parent.find(".inputID").val(getID)
+            parent.find(".postID").submit();
+        })
+    })   
 </script> {{/section}}
