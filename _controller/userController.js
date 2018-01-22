@@ -30,22 +30,33 @@ module.exports = app => {
   });
   app.get("/history", authenLoginMW.checkLogin, async (req, res) => {
     let myCart = await modelForCart.loadCartByUserID(res.locals.currentUser);
-    let productsInCart = await modelForCart.getProductsInCartByCartID(
-      myCart[0]
-    );
 
-    let allProdInfo = await Promise.all(
-      productsInCart.map(async product => {
-        let prodInfo = await modelForCart.getProductsByProdID(product);
-        return { ...prodInfo[0] };
+    let listProductsInEachCart = await Promise.all(
+      myCart.map(async cart => {
+        let productsInCart = await modelForCart.getProductsInCartByCartID(cart);
+        return [...productsInCart];
       })
     );
-    let tempPrice = allProdInfo.reduce((sum, amount) => ({
-      ProdPrice: sum.ProdPrice + amount.ProdPrice
-    }));
 
-    myCart[0].TotalPrice = tempPrice.ProdPrice;
-    myCart[0].ProdCount = productsInCart.length;
+    let listProdInfoInEachCart = await Promise.all(
+      listProductsInEachCart.map(async cart => {
+        let allProdInfo = await Promise.all(
+          cart.map(async product => {
+            let prodInfo = await modelForCart.getProductsByProdID(product);
+            return { ...prodInfo[0] };
+          })
+        );
+        return [...allProdInfo];
+      })
+    );
+
+    listProdInfoInEachCart.forEach((cart, index) => {
+      let tempPrice = cart.reduce((sum, amount) => ({
+        ProdPrice: sum.ProdPrice + amount.ProdPrice
+      }));
+      myCart[index].TotalPrice = tempPrice.ProdPrice;
+      myCart[index].ProdCount = cart.length;
+    });
 
     let ve = {
       myCart

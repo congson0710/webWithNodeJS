@@ -5,16 +5,16 @@
     <div class="row">
         {{#each prod}}
         <div class="col-md-3">
-            <form class="flagForm" action="" method="post">
-                <input type="hidden" value="{{ProdID}}" name="ProdID" class="value">
-            </form>
             <div class="img-thumbnail">
+                <form class="flagForm" action="" method="post">
+                    <input type="hidden" value="{{ProdID}}" name="ProdID" class="valueProdID">
+                </form>
                 <img src="{{ProdImage}}" alt="motul" height="250" width="230">
                 <div class="caption">
                     <p class="h5 prodName">{{ProdName}}</p>
                     <p class="prodPrice"> {{ProdPrice}} </p>
                     <p>
-                        <button href="" class="btn btn-primary btnAddCart">Thêm vào giỏ hàng</button>
+                        <button href="" class="btn btn-primary btnAddToCart">Thêm vào giỏ hàng</button>
                     </p>
                 </div>
             </div>
@@ -25,8 +25,25 @@
 
 {{#section 'js'}}
 <script>
-    $(".btnAddCart").click(function () {
-        const parent = $(this).parents('.col-md-3');
-        parent.find(".flagForm").submit();
-    });
+    $(document).ready(function () {
+        const myStorage = window.localStorage;
+        const temp_cart = {
+            temp_cart: []
+        }
+
+        $(".btnAddToCart").click(function () {
+            const parent = $(this).parents(".img-thumbnail");
+            const chooseProdID = Number(parent.find(".valueProdID").val());
+
+            temp_cart.temp_cart.map(({ ProdID }) => ProdID).includes(chooseProdID) ? temp_cart.temp_cart.map(product => (
+                product.ProdID === chooseProdID ? { ...product, ProdQuantity: product.ProdQuantity++ } : product
+            )) :
+                temp_cart.temp_cart.push({
+                    ProdID: chooseProdID,
+                    ProdQuantity: 1
+                });
+
+            myStorage.setItem('temp_cart', JSON.stringify(temp_cart));
+        });
+    })
 </script> {{/section}}

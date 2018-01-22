@@ -42,6 +42,7 @@
     $(document).ready(() => {
         const myStorage = window.localStorage
         const temp_cart = myStorage.getItem('temp_cart');
+        console.log("cart: ", temp_cart)
 
         $.ajax({
             type: 'POST',
@@ -51,10 +52,11 @@
             contentType: 'application/json'
         }).then((cart) => {
             let html = ""
-            cart.forEach(({ ProdID, ProdName, ProdPrice, ProdQuantity }) => {
+            cart.forEach(({ ProdID, ProdName, ProdPrice, ProdQuantity }, index) => {
+                let Stt = index + 1
                 let ProdSubTotal = ProdPrice * ProdQuantity
                 html += `<tr>
-                            <th scope="row" class="id">${ProdID}</th>
+                            <th scope="row" class="id">${Stt}</th>
                             <td>${ProdName}</td>
                             <td>Còn hàng</td>
                             <td class="price">${ProdPrice}</td>
@@ -110,9 +112,7 @@
             dataType: 'json',
             contentType: 'application/json'
         }).then(statusCode => {
-            let html = ""
             if (statusCode.status === "success") {
-                $("#tbody").html(html)
                 window.localStorage.clear();
                 window.location.replace("/");
             }
