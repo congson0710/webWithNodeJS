@@ -47,22 +47,20 @@
     })
 </script>
 <script>
-    $(document).ready(() => {
-        $(".showDetail").on("click", () => {
-            let parent = $(".showDetail").parents(".detailCartBelow");
-            let idTag = parent.find(".id").text();
-            let getID = {
-                CartID: idTag
-            }
+    $(".showDetail").click(function () {
+        const parent = $(this).parents(".detailCartBelow");
+        const idTag = parent.find(".id").text();
+        const getID = {
+            CartID: idTag
+        }
 
-            $.ajax({
-                url: '/history',
-                type: 'POST',
-                data: getID
-            }).then(myProductsInfo => {
-                let myStorage = window.localStorage;
-                myStorage.setItem("productsInfo", JSON.stringify(myProductsInfo));
-            })
+        $.ajax({
+            url: '/history',
+            type: 'POST',
+            data: getID
+        }).then(myProductsInfo => {
+            let myStorage = window.localStorage;
+            myStorage.setItem("productsInfo", JSON.stringify(myProductsInfo));
         })
-    })   
+    })  
 </script> {{/section}}
